@@ -1,6 +1,13 @@
 .header {
     margin: 0;
     padding: 28px 0 0; 
-    min-height: 56px;
+    height: 56px;
     border-bottom: 1px solid #545454;
+}
+
+@media (min-width: 918px) {
+    .header {
+        padding-top: 45px;
+        height: 74px;
+    }
 }

@@ -6,3 +6,12 @@
     margin: 0;
     padding-top: 14px;
 }
+
+@media (min-width: 918px) {
+    .profile__discription {
+        line-height: 1.2;
+        font-size: 18px;
+        text-align: left;
+        padding-top: 16px;
+    }
+}

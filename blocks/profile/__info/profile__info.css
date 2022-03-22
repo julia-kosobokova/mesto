@@ -4,3 +4,10 @@
     display: flex;
     justify-content: center;
 }
+
+@media (min-width: 918px) {
+    .profile__info {
+        align-items: baseline;
+        margin-right: auto;
+    }
+}
