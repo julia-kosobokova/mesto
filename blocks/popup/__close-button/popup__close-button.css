@@ -1,6 +1,7 @@
 .popup__close-button {
+    padding: 0;
     position: absolute;
-    cursor: pointer;
+    cursor:pointer;
     border: none;
     background: none;
     height: 20px;
@@ -15,7 +16,7 @@
     border: 1px solid white;
     transform: rotate(45deg);
     top: 0;
-    height: 20px;
+    height: 28px;
 }
 
 .popup__close-button:after {
@@ -24,5 +25,27 @@
     border: 1px solid white;
     transform: rotate(-45deg);
     top: 0;
-    height: 20px;
+    height: 28px;
+}
+
+@media (min-width: 918px) {
+    .popup__close-button {
+        height: 32px;
+        width: 32px;
+        top: -40px;
+        right: -8;
+    }
+}
+
+@media (min-width: 918px) {
+    .popup__close-button:after {
+        border-width: 2px;
+        height: 45px;
+    }
+}
+@media (min-width: 918px) {
+    .popup__close-button:before {
+        border-width: 2px;
+        height: 45px;
+    }
 }

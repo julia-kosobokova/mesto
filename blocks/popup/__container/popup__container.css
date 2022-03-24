@@ -9,5 +9,13 @@
     padding-right: 22px;
     display: flex;
     align-items: top;
+}
 
+@media (min-width: 918px) {
+    .popup__container {
+        min-height: 330px;
+        width: 430px;
+        padding-left: 36px;
+        padding-right: 36px;
+    }
 }
