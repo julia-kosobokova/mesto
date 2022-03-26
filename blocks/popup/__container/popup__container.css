@@ -5,8 +5,6 @@
     min-height: 322px;
     width: 282px;
     margin: 0 auto;
-    padding-left: 22px;
-    padding-right: 22px;
     display: flex;
     align-items: top;
 }
@@ -15,7 +13,5 @@
     .popup__container {
         min-height: 330px;
         width: 430px;
-        padding-left: 36px;
-        padding-right: 36px;
     }
 }

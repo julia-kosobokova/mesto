@@ -13,19 +13,25 @@
 .popup__close-button:before {
     position: absolute;
     content: '';
-    border: 1px solid white;
-    transform: rotate(45deg);
-    top: 0;
-    height: 28px;
+    border-top: 3px solid white; /* рисуем горизонтальную линию нужной толщины */
+    width: 28px; /* длина линии креста = диагональ кнопки 20 х 20 */
+    left: -4px; /* центровка по горизонтали: диагональ больше стороны кнопки на 8px; смещаем на половину этой разницы */
+    top: calc(50% - 3px / 2); /* центровка по вертикали: смещаем вверх на половину толщины линии */
+    transform: rotate(45deg); /* поворачиваем линию на 40deg по часовой */
 }
 
 .popup__close-button:after {
     position: absolute;
     content: '';
-    border: 1px solid white;
+    border-top: 3px solid white;
+    width: 28px;
+    left: -4px;
+    top: calc(50% - 3px / 2);
     transform: rotate(-45deg);
-    top: 0;
-    height: 28px;
+}
+
+.popup__close-button:hover {
+    opacity: 0.6;
 }
 
 @media (min-width: 918px) {
@@ -33,19 +39,23 @@
         height: 32px;
         width: 32px;
         top: -40px;
-        right: -8;
+        right: -40px;
     }
 }
 
 @media (min-width: 918px) {
     .popup__close-button:after {
-        border-width: 2px;
-        height: 45px;
+        left: -6.5px;
+        border-top-width: 5px;
+        width: 45px;
+        top: calc(50% - 5px / 2);
     }
 }
 @media (min-width: 918px) {
     .popup__close-button:before {
-        border-width: 2px;
-        height: 45px;
+        left: -6.5px;
+        border-top-width: 5px;
+        width: 45px;
+        top: calc(50% - 5px / 2);
     }
 }

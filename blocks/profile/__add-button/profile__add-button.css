@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+.profile__add-button:hover {
+    opacity: 0.6;
+}
+
 @media (min-width: 918px) {
     .profile__add-button {
         width: 150px;
