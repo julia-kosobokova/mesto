@@ -11,12 +11,12 @@
 
 @media (min-width: 619px) {
   .page {
-    max-width: 581px;  
+    max-width: 581px;
   }
 }
 
 @media (min-width: 918px) {
   .page {
-    max-width: 880px;  
+    max-width: 880px;
   }
 }
