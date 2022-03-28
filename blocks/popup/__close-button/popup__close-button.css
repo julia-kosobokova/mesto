@@ -37,6 +37,7 @@
 
 .popup__close-button:hover {
     opacity: 0.6;
+    transition: opacity 0.5s linear 0.2s;
 }
 
 @media (min-width: 918px) {
@@ -46,18 +47,14 @@
         top: -40px;
         right: -40px;
     }
-}
 
-@media (min-width: 918px) {
     .popup__close-button:after {
         left: -6.5px;
         border-top-width: 5px;
         width: 45px;
         top: calc(50% - 5px / 2);
     }
-}
 
-@media (min-width: 918px) {
     .popup__close-button:before {
         left: -6.5px;
         border-top-width: 5px;
