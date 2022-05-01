@@ -1,30 +1,39 @@
-const popupElement = document.querySelector('.popup');
-const editButton = document.querySelector('.profile__edit-button');
-const closeButton = popupElement.querySelector('.popup__close-button');
-const nameInput = document.querySelector('.popup__input_type_name');
-const descriptionInput = document.querySelector('.popup__input_type_description');
-const nameElement = document.querySelector('.profile__name');
-const descriptionElement = document.querySelector('.profile__description');
-const formElement = document.querySelector('.popup__form');
+const editButton=document.querySelector('.profile__edit-button');
+const addButton=document.querySelector('.profile__add-button');
+const popupProfile=document.querySelector('.popup_profile');
+const popupElement=document.querySelector('.popup_element');
+const closeButtonProfile=popupProfile.querySelector('.popup__close-button');
+const closeButtonElement=popupElement.querySelector('.popup__close-button');
 
-const popupNewPlace = document.querySelector('.popup_new-place');
-console.log(popupNewPlace);
-const addButton = document.querySelector('.profile__add-button');
+const nameProfileInput=popupProfile.querySelector('.popup__input_type_name');
+const descriptionProfileInput=popupProfile.querySelector('.popup__input_type_description');
+const nameProfile=document.querySelector('.profile__name');
+const descriptionProfile=document.querySelector('.profile__description');
 
-function openPopup() {
-  popupElement.classList.add('popup_opened');
+const profileForm = popupProfile.querySelector('.popup__form');
 
-  nameInput.value = nameElement.textContent;
-  descriptionInput.value = descriptionElement.textContent;
+//открытие popup
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
 }
 
-function openNewPlacePopup() {
-  popupNewPlace.classList.add('popup_opened');
+// Popup окна редактирования профиля
+function openPopupProfile() {
+  openPopup(popupProfile);
+  nameProfileInput.value = nameProfile.textContent;
+  descriptionProfileInput.value = descriptionProfile.textContent;
 }
 
-function closePopup() {
-  popupElement.classList.remove('popup_opened');
+editButton.addEventListener('click',()=>openPopupProfile());
+addButton.addEventListener('click',()=>openPopup(popupElement));
+
+//закрытие popup
+function closePopup (popup) {
+  popup.classList.remove('popup_opened');
 }
+
+closeButtonProfile.addEventListener('click',()=>closePopup(popupProfile));
+closeButtonElement.addEventListener('click',()=>closePopup(popupElement));
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -33,17 +42,15 @@ function formSubmitHandler(evt) {
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
 
-  nameElement.textContent = nameInput.value;
-  descriptionElement.textContent = descriptionInput.value;
+  nameProfile.textContent = nameProfileInput.value;
+  descriptionProfile.textContent = descriptionProfileInput.value;
 
-  closePopup();
+  closePopup(popupProfile);
 }
 
-editButton.addEventListener('click', openPopup);
-addButton.addEventListener('click', openNewPlacePopup);
-closeButton.addEventListener('click', closePopup);
-formElement.addEventListener('submit', formSubmitHandler);
+profileForm.addEventListener('submit', formSubmitHandler);
 
+//Карточки
 const initialCards = [{
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -70,6 +77,7 @@ const initialCards = [{
   }
 ];
 
+// функция создания новой карточки
 function createElement(caption, image) {
   const elementTemplate = document.querySelector('#element-template').content;
   
