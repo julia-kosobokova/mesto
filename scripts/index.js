@@ -90,13 +90,20 @@ const initialCards = [{
 // функция создания новой карточки
 function createElement(caption, image) {
   const elementTemplate = document.querySelector('#element-template').content;
-  
   const elementClone = elementTemplate.querySelector('.element').cloneNode(true);
+
+  const likeButton=elementClone.querySelector('.element__like');
+  const trashButton=elementClone.querySelector('.element__trash');
 
   elementClone.querySelector('.element__caption').textContent = caption;
   elementClone.querySelector('.element__image').src = image;
-  elementClone.addEventListener('click',function (evt){
+
+  likeButton.addEventListener('click',function (evt){
     evt.target.classList.toggle('element__like_active');
+  });
+
+  trashButton.addEventListener('click',function (){
+    elementClone.remove();
   });
 
   elements.prepend(elementClone);
