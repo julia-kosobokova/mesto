@@ -9,8 +9,11 @@ const nameProfileInput=popupProfile.querySelector('.popup__input_type_name');
 const descriptionProfileInput=popupProfile.querySelector('.popup__input_type_description');
 const nameProfile=document.querySelector('.profile__name');
 const descriptionProfile=document.querySelector('.profile__description');
-
 const profileForm = popupProfile.querySelector('.popup__form');
+
+const nameElementInput=popupElement.querySelector('.popup__input_type_name');
+const linkElementInput=popupElement.querySelector('.popup__input_type_link');
+const elementForm = popupElement.querySelector('.popup__form');
 
 //открытие popup
 function openPopup (popup) {
@@ -24,8 +27,15 @@ function openPopupProfile() {
   descriptionProfileInput.value = descriptionProfile.textContent;
 }
 
+// Popup окна добавления карточки
+function openPopupElement() {
+  openPopup(popupElement);
+  nameElementInput.value = '';
+  linkElementInput.value = '';
+}
+
 editButton.addEventListener('click',()=>openPopupProfile());
-addButton.addEventListener('click',()=>openPopup(popupElement));
+addButton.addEventListener('click',()=>openPopupElement());
 
 //закрытие popup
 function closePopup (popup) {
@@ -35,9 +45,9 @@ function closePopup (popup) {
 closeButtonProfile.addEventListener('click',()=>closePopup(popupProfile));
 closeButtonElement.addEventListener('click',()=>closePopup(popupElement));
 
-// Обработчик «отправки» формы, хотя пока
+// Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
-function formSubmitHandler(evt) {
+function profileFormSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
@@ -48,7 +58,7 @@ function formSubmitHandler(evt) {
   closePopup(popupProfile);
 }
 
-profileForm.addEventListener('submit', formSubmitHandler);
+profileForm.addEventListener('submit', profileFormSubmitHandler);
 
 //Карточки
 const initialCards = [{
@@ -86,7 +96,7 @@ function createElement(caption, image) {
   elementClone.querySelector('.element__caption').textContent = caption;
   elementClone.querySelector('.element__image').src = image;
 
-  elements.append(elementClone);
+  elements.prepend(elementClone);
 }
 
 const elements = document.querySelector('.elements__list');
@@ -95,3 +105,17 @@ const elements = document.querySelector('.elements__list');
 initialCards.forEach(function (card) {
   createElement(card.name, card.link);
 });
+
+// Обработчик «отправки» формы добавления карточки, хотя пока
+// она никуда отправляться не будет
+function elementFormSubmitHandler(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  // Так мы можем определить свою логику отправки.
+  // О том, как это делать, расскажем позже.
+
+  createElement(nameElementInput.value, linkElementInput.value);
+
+  closePopup(popupElement);
+}
+
+elementForm.addEventListener('submit', elementFormSubmitHandler);
