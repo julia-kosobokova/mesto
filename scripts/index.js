@@ -95,6 +95,9 @@ function createElement(caption, image) {
 
   elementClone.querySelector('.element__caption').textContent = caption;
   elementClone.querySelector('.element__image').src = image;
+  elementClone.addEventListener('click',function (evt){
+    evt.target.classList.toggle('element__like_active');
+  });
 
   elements.prepend(elementClone);
 }
