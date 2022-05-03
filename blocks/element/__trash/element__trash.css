@@ -1,7 +1,7 @@
 .element__trash {
-    position:absolute;
-    top:20px;
-    right:20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     margin: 0;
     padding: 0;
     width: 18px;
@@ -12,7 +12,7 @@
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    z-index:1;
+    z-index: 1;
 }
 
 .element__trash:hover {

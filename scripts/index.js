@@ -1,27 +1,27 @@
-const editButton=document.querySelector('.profile__edit-button');
-const addButton=document.querySelector('.profile__add-button');
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
 
-const popupProfile=document.querySelector('.popup_profile');
-const closeButtonProfile=popupProfile.querySelector('.popup__close-button');
+const popupProfile = document.querySelector('.popup_profile');
+const closeButtonProfile = popupProfile.querySelector('.popup__close-button');
 
-const popupElement=document.querySelector('.popup_element');
-const closeButtonElement=popupElement.querySelector('.popup__close-button');
+const popupElement = document.querySelector('.popup_element');
+const closeButtonElement = popupElement.querySelector('.popup__close-button');
 
-const popupImage=document.querySelector('.popup_image');
-const closeButtonImage=popupImage.querySelector('.popup__close-button');
+const popupImage = document.querySelector('.popup_image');
+const closeButtonImage = popupImage.querySelector('.popup__close-button');
 
-const nameProfileInput=popupProfile.querySelector('.popup__input_type_name');
-const descriptionProfileInput=popupProfile.querySelector('.popup__input_type_description');
-const nameProfile=document.querySelector('.profile__name');
-const descriptionProfile=document.querySelector('.profile__description');
+const nameProfileInput = popupProfile.querySelector('.popup__input_type_name');
+const descriptionProfileInput = popupProfile.querySelector('.popup__input_type_description');
+const nameProfile = document.querySelector('.profile__name');
+const descriptionProfile = document.querySelector('.profile__description');
 const profileForm = popupProfile.querySelector('.popup__form');
 
-const nameElementInput=popupElement.querySelector('.popup__input_type_name');
-const linkElementInput=popupElement.querySelector('.popup__input_type_link');
+const nameElementInput = popupElement.querySelector('.popup__input_type_name');
+const linkElementInput = popupElement.querySelector('.popup__input_type_link');
 const elementForm = popupElement.querySelector('.popup__form');
 
 // Открытие popup
-function openPopup (popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
@@ -39,21 +39,21 @@ function openPopupElement() {
   linkElementInput.value = '';
 }
 
-editButton.addEventListener('click',()=>openPopupProfile());
-addButton.addEventListener('click',()=>openPopupElement());
+editButton.addEventListener('click', () => openPopupProfile());
+addButton.addEventListener('click', () => openPopupElement());
 
 //Закрытие popup
-function closePopup (popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-closeButtonProfile.addEventListener('click',()=>closePopup(popupProfile));
-closeButtonElement.addEventListener('click',()=>closePopup(popupElement));
-closeButtonImage.addEventListener('click',()=>closePopup(popupImage));
+closeButtonProfile.addEventListener('click', () => closePopup(popupProfile));
+closeButtonElement.addEventListener('click', () => closePopup(popupElement));
+closeButtonImage.addEventListener('click', () => closePopup(popupImage));
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
-function profileFormSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
@@ -64,7 +64,7 @@ function profileFormSubmitHandler(evt) {
   closePopup(popupProfile);
 }
 
-profileForm.addEventListener('submit', profileFormSubmitHandler);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 //Карточки
 const initialCards = [{
@@ -98,25 +98,25 @@ function createElement(caption, image) {
   const elementTemplate = document.querySelector('#element-template').content;
   const elementClone = elementTemplate.querySelector('.element').cloneNode(true);
 
-  const likeButton=elementClone.querySelector('.element__like');
-  const trashButton=elementClone.querySelector('.element__trash');
+  const likeButton = elementClone.querySelector('.element__like');
+  const trashButton = elementClone.querySelector('.element__trash');
 
-  const imageElement=elementClone.querySelector('.element__image');
-  
+  const imageElement = elementClone.querySelector('.element__image');
+  const captionElement = elementClone.querySelector('.element__caption');
 
-  elementClone.querySelector('.element__caption').textContent = caption;
-  elementClone.querySelector('.element__image').src = image;
-  elementClone.querySelector('.element__image').alt = caption;
+  captionElement.textContent = caption;
+  imageElement.src = image;
+  imageElement.alt = caption;
 
-  likeButton.addEventListener('click',function (evt){
+  likeButton.addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__like_active');
   });
 
-  trashButton.addEventListener('click',function (){
+  trashButton.addEventListener('click', function () {
     elementClone.remove();
   });
 
-  imageElement.addEventListener('click',function (evt){
+  imageElement.addEventListener('click', function (evt) {
     openPopupImage(evt.target.src, evt.target.alt);
   });
 
@@ -131,16 +131,19 @@ initialCards.forEach(function (card) {
 });
 
 // Функция открытия карточки
-function openPopupImage(link, text) {
+function openPopupImage(link, caption) {
+  const image = popupImage.querySelector('.popup__image');
+  const text = popupImage.querySelector('.popup__text');
+
   openPopup(popupImage);
-  popupImage.querySelector('.popup__image').src = link;
-  popupImage.querySelector('.popup__image').alt = text;
-  popupImage.querySelector('.popup__text').textContent = text;
+  image.src = link;
+  image.alt = caption;
+  text.textContent = caption;
 }
 
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
-function elementFormSubmitHandler(evt) {
+function handleElementFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
@@ -150,4 +153,4 @@ function elementFormSubmitHandler(evt) {
   closePopup(popupElement);
 }
 
-elementForm.addEventListener('submit', elementFormSubmitHandler);
+elementForm.addEventListener('submit', handleElementFormSubmit);
