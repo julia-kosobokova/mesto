@@ -1,9 +1,14 @@
 const editButton=document.querySelector('.profile__edit-button');
 const addButton=document.querySelector('.profile__add-button');
+
 const popupProfile=document.querySelector('.popup_profile');
-const popupElement=document.querySelector('.popup_element');
 const closeButtonProfile=popupProfile.querySelector('.popup__close-button');
+
+const popupElement=document.querySelector('.popup_element');
 const closeButtonElement=popupElement.querySelector('.popup__close-button');
+
+const popupImage=document.querySelector('.popup_image');
+const closeButtonImage=popupImage.querySelector('.popup__close-button');
 
 const nameProfileInput=popupProfile.querySelector('.popup__input_type_name');
 const descriptionProfileInput=popupProfile.querySelector('.popup__input_type_description');
@@ -15,7 +20,7 @@ const nameElementInput=popupElement.querySelector('.popup__input_type_name');
 const linkElementInput=popupElement.querySelector('.popup__input_type_link');
 const elementForm = popupElement.querySelector('.popup__form');
 
-//открытие popup
+// Открытие popup
 function openPopup (popup) {
   popup.classList.add('popup_opened');
 }
@@ -37,13 +42,14 @@ function openPopupElement() {
 editButton.addEventListener('click',()=>openPopupProfile());
 addButton.addEventListener('click',()=>openPopupElement());
 
-//закрытие popup
+//Закрытие popup
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
 }
 
 closeButtonProfile.addEventListener('click',()=>closePopup(popupProfile));
 closeButtonElement.addEventListener('click',()=>closePopup(popupElement));
+closeButtonImage.addEventListener('click',()=>closePopup(popupImage));
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
@@ -95,8 +101,12 @@ function createElement(caption, image) {
   const likeButton=elementClone.querySelector('.element__like');
   const trashButton=elementClone.querySelector('.element__trash');
 
+  const imageElement=elementClone.querySelector('.element__image');
+  
+
   elementClone.querySelector('.element__caption').textContent = caption;
   elementClone.querySelector('.element__image').src = image;
+  elementClone.querySelector('.element__image').alt = caption;
 
   likeButton.addEventListener('click',function (evt){
     evt.target.classList.toggle('element__like_active');
@@ -104,6 +114,10 @@ function createElement(caption, image) {
 
   trashButton.addEventListener('click',function (){
     elementClone.remove();
+  });
+
+  imageElement.addEventListener('click',function (evt){
+    openPopupImage(evt.target.src, evt.target.alt);
   });
 
   elements.prepend(elementClone);
@@ -115,6 +129,14 @@ const elements = document.querySelector('.elements__list');
 initialCards.forEach(function (card) {
   createElement(card.name, card.link);
 });
+
+// Функция открытия карточки
+function openPopupImage(link, text) {
+  openPopup(popupImage);
+  popupImage.querySelector('.popup__image').src = link;
+  popupImage.querySelector('.popup__image').alt = text;
+  popupImage.querySelector('.popup__text').textContent = text;
+}
 
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
