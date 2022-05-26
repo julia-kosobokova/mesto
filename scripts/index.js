@@ -34,6 +34,9 @@ function openPopup(popup) {
 function openPopupProfile() {
   inputProfileName.value = nameProfile.textContent;
   inputProfileDescription.value = descriptionProfile.textContent;
+  const event=new Event("input");
+  inputProfileName.dispatchEvent(event);
+  inputProfileDescription.dispatchEvent(event);
   openPopup(popupProfile);
 }
 
