@@ -25,16 +25,20 @@ const elementTemplate = document.querySelector('#element-template').content;
 const image = popupImage.querySelector('.popup__image');
 const text = popupImage.querySelector('.popup__text');
 
+let escEventListener;
+
 // Открытие popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  escEventListener = (evt) => escPopup(evt, popup);
+  document.addEventListener('keydown', escEventListener);
 }
 
 // Popup окна редактирования профиля
 function openPopupProfile() {
   inputProfileName.value = nameProfile.textContent;
   inputProfileDescription.value = descriptionProfile.textContent;
-  const event=new Event("input");
+  const event = new Event("input");
   inputProfileName.dispatchEvent(event);
   inputProfileDescription.dispatchEvent(event);
   openPopup(popupProfile);
@@ -53,18 +57,25 @@ buttonAdd.addEventListener('click', () => openPopupElement());
 //Закрытие popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escEventListener);
+}
+
+// Закрытие popup нажатием на Esc
+function escPopup(evt, popup) {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
 }
 
 buttonCloseProfile.addEventListener('click', () => closePopup(popupProfile));
 buttonCloseElement.addEventListener('click', () => closePopup(popupElement));
 buttonCloseImage.addEventListener('click', () => closePopup(popupImage));
 
+
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-  // О том, как это делать, расскажем позже.
 
   nameProfile.textContent = inputProfileName.value;
   descriptionProfile.textContent = inputProfileDescription.value;
