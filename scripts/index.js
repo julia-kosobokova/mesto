@@ -2,12 +2,15 @@ const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
 const popupProfile = document.querySelector('.popup_profile');
+const popupContainerProfile = popupProfile.querySelector('.popup__container');
 const buttonCloseProfile = popupProfile.querySelector('.popup__close-button');
 
 const popupElement = document.querySelector('.popup_element');
+const popupContainerElement = popupElement.querySelector('.popup__container');
 const buttonCloseElement = popupElement.querySelector('.popup__close-button');
 
 const popupImage = document.querySelector('.popup_image');
+const popupContainerImage = popupImage.querySelector('.popup__container');
 const buttonCloseImage = popupImage.querySelector('.popup__close-button');
 
 const inputProfileName = popupProfile.querySelector('.popup__input_type_name');
@@ -55,7 +58,7 @@ buttonEdit.addEventListener('click', () => openPopupProfile());
 buttonAdd.addEventListener('click', () => openPopupElement());
 
 //Закрытие popup
-function closePopup(popup) {
+function closePopup(popup, evt) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escEventListener);
 }
@@ -76,6 +79,9 @@ popupProfile.addEventListener('click', () => closePopup(popupProfile));
 popupElement.addEventListener('click', () => closePopup(popupElement));
 popupImage.addEventListener('click', () => closePopup(popupImage));
 
+popupContainerProfile.addEventListener('click', (evt) => evt.stopPropagation());
+popupContainerElement.addEventListener('click', (evt) => evt.stopPropagation());
+popupContainerImage.addEventListener('click', (evt) => evt.stopPropagation());
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
