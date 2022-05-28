@@ -139,9 +139,7 @@ function openPopupImage(link, caption) {
 // она никуда отправляться не будет
 function handleElementFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-  // О том, как это делать, расскажем позже.
-
+ 
   const element = createElement(inputElementName.value, inputElementLink.value);
   elements.prepend(element);
 
