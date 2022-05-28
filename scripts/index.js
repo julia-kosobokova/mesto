@@ -71,6 +71,11 @@ buttonCloseProfile.addEventListener('click', () => closePopup(popupProfile));
 buttonCloseElement.addEventListener('click', () => closePopup(popupElement));
 buttonCloseImage.addEventListener('click', () => closePopup(popupImage));
 
+//Закрытые popup кликом на overlay
+popupProfile.addEventListener('click', () => closePopup(popupProfile));
+popupElement.addEventListener('click', () => closePopup(popupElement));
+popupImage.addEventListener('click', () => closePopup(popupImage));
+
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
