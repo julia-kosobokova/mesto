@@ -35,6 +35,7 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   escEventListener = (evt) => escPopup(evt, popup);
   document.addEventListener('keydown', escEventListener);
+  popup.addEventListener('mousedown', closeOverlay);
 }
 
 // Popup окна редактирования профиля
@@ -61,9 +62,10 @@ buttonEdit.addEventListener('click', () => openPopupProfile());
 buttonAdd.addEventListener('click', () => openPopupElement());
 
 //Закрытие popup
-function closePopup(popup, evt) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escEventListener);
+  popup.removeEventListener('mousedown', closeOverlay);
 }
 
 // Закрытие popup нажатием на Esc
@@ -78,13 +80,11 @@ buttonCloseElement.addEventListener('click', () => closePopup(popupElement));
 buttonCloseImage.addEventListener('click', () => closePopup(popupImage));
 
 //Закрытые popup кликом на overlay
-popupProfile.addEventListener('click', () => closePopup(popupProfile));
-popupElement.addEventListener('click', () => closePopup(popupElement));
-popupImage.addEventListener('click', () => closePopup(popupImage));
-
-popupContainerProfile.addEventListener('click', (evt) => evt.stopPropagation());
-popupContainerElement.addEventListener('click', (evt) => evt.stopPropagation());
-popupContainerImage.addEventListener('click', (evt) => evt.stopPropagation());
+function closeOverlay(evt) {
+  if (evt.target === evt.target.closest('.popup')) {
+    closePopup(evt.target);
+  }
+}
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
