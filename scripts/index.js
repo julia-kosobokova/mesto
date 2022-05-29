@@ -52,6 +52,9 @@ function openPopupElement() {
   openPopup(popupElement);
   inputElementName.value = '';
   inputElementLink.value = '';
+  const event = new Event("input");
+  inputElementName.dispatchEvent(event);
+  inputElementLink.dispatchEvent(event);
 }
 
 buttonEdit.addEventListener('click', () => openPopupProfile());

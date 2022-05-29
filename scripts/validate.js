@@ -29,11 +29,9 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement, options) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(options.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableSubmit(buttonElement, options);
   } else {
-    buttonElement.classList.remove(options.inactiveButtonClass);
-    buttonElement.disabled = false;
+    enableSubmit(buttonElement, options);
   }
 };
 
@@ -62,6 +60,17 @@ const enableValidation = (options) => {
     });
   });
 };
+
+// Блокировка кнопки submit
+function disableSubmit(buttonElement, options) {
+  buttonElement.classList.add(options.inactiveButtonClass);
+  buttonElement.disabled = true;
+};
+
+function enableSubmit(buttonElement, options) {
+  buttonElement.classList.remove(options.inactiveButtonClass);
+  buttonElement.disabled = false;
+}
 
 // Включение валидации вызовом enableValidation
 // Все настройки передаются при вызове
