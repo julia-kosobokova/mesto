@@ -8,6 +8,7 @@ const buttonCloseProfile = popupProfile.querySelector('.popup__close-button');
 const popupElement = document.querySelector('.popup_element');
 const popupContainerElement = popupElement.querySelector('.popup__container');
 const buttonCloseElement = popupElement.querySelector('.popup__close-button');
+const buttonSaveElement = popupElement.querySelector('.popup__save-button')
 
 const popupImage = document.querySelector('.popup_image');
 const popupContainerImage = popupImage.querySelector('.popup__container');
@@ -53,9 +54,8 @@ function openPopupElement() {
   openPopup(popupElement);
   inputElementName.value = '';
   inputElementLink.value = '';
-  const event = new Event("input");
-  inputElementName.dispatchEvent(event);
-  inputElementLink.dispatchEvent(event);
+
+  disableSubmit(buttonSaveElement, {inactiveButtonClass: 'popup__save-button_inactive'});
 }
 
 buttonEdit.addEventListener('click', () => openPopupProfile());
