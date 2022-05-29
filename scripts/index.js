@@ -55,7 +55,9 @@ function openPopupElement() {
   inputElementName.value = '';
   inputElementLink.value = '';
 
-  disableSubmit(buttonSaveElement, {inactiveButtonClass: 'popup__save-button_inactive'});
+  disableSubmit(buttonSaveElement, {
+    inactiveButtonClass: 'popup__save-button_inactive'
+  });
 }
 
 buttonEdit.addEventListener('click', () => openPopupProfile());
