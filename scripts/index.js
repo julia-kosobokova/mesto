@@ -23,7 +23,9 @@ const inputElementName = popupElement.querySelector('.popup__input_type_name');
 const inputElementLink = popupElement.querySelector('.popup__input_type_link');
 const formElement = popupElement.querySelector('.popup__form');
 
-const elementTemplate = document.querySelector('#element-template').content;
+const elementTemplate = document
+.querySelector('#element-template')
+.content;
 
 const image = popupImage.querySelector('.popup__image');
 const text = popupImage.querySelector('.popup__text');
@@ -96,40 +98,67 @@ function handleProfileFormSubmit(evt) {
 
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 
-// функция создания новой карточки
-function createElement(caption, image) {
-  const elementClone = elementTemplate.querySelector('.element').cloneNode(true);
 
-  const buttonLike = elementClone.querySelector('.element__like');
-  const buttonTrash = elementClone.querySelector('.element__trash');
+class Card {
+  constructor (caption, image, templateSelector){
+    this._caption=caption;
+    this._image=image;
+    this._templateSelector=templateSelector;
+  }
 
-  const imageElement = elementClone.querySelector('.element__image');
-  const captionElement = elementClone.querySelector('.element__caption');
+  _like(){
+    this._isliked=!this._isliked;
+  }
 
-  captionElement.textContent = caption;
-  imageElement.src = image;
-  imageElement.alt = caption;
+  _getTemplate (){
+    const cardElement = document
+    .querySelector(this._templateSelector)
+    .content
+    .querySelector('.element')
+    .cloneNode(true);
+    
+  // вернём DOM-элемент карточки
+    return cardElement;
+  }
 
-  buttonLike.addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like_active');
-  });
+  //Создание новой карточки
+  generateCard (){
+    const elementClone = this._getTemplate();
 
-  buttonTrash.addEventListener('click', function () {
-    elementClone.remove();
-  });
+    const buttonLike = elementClone.querySelector('.element__like');
+    const buttonTrash = elementClone.querySelector('.element__trash');
 
-  imageElement.addEventListener('click', function (evt) {
-    openPopupImage(evt.target.src, evt.target.alt);
-  });
+    const imageElement = elementClone.querySelector('.element__image');
+    const captionElement = elementClone.querySelector('.element__caption');
 
-  return elementClone;
+    captionElement.textContent = this._caption;
+    imageElement.src = this._image;
+    imageElement.alt = this._caption;
+
+    buttonLike.addEventListener('click', function (evt) {
+      evt.target.classList.toggle('element__like_active');
+    });
+
+    buttonTrash.addEventListener('click', function () {
+      elementClone.remove();
+    });
+
+    imageElement.addEventListener('click', function (evt) {
+      openPopupImage(evt.target.src, evt.target.alt);
+    });
+
+    return elementClone;
+
+  }
 }
 
 const elements = document.querySelector('.elements__list');
 
 // функция перебора массива
-initialCards.forEach(function (card) {
-  const element = createElement(card.name, card.link);
+initialCards.forEach(function (cardAttributes) {
+  const card=new Card (cardAttributes.name, cardAttributes.link, '#element-template');
+  console.log(card);
+  const element = card.generateCard();
   elements.prepend(element);
 });
 
@@ -146,7 +175,10 @@ function openPopupImage(link, caption) {
 function handleElementFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const element = createElement(inputElementName.value, inputElementLink.value);
+  const card=new Card (inputElementName.value, inputElementLink.value, '#element-template');
+  console.log(card);
+  const element = card.generateCard();
+
   elements.prepend(element);
 
   closePopup(popupElement);
