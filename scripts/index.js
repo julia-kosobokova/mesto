@@ -24,8 +24,8 @@ const inputElementLink = popupElement.querySelector('.popup__input_type_link');
 const formElement = popupElement.querySelector('.popup__form');
 
 const elementTemplate = document
-.querySelector('#element-template')
-.content;
+  .querySelector('#element-template')
+  .content;
 
 const image = popupImage.querySelector('.popup__image');
 const text = popupImage.querySelector('.popup__text');
@@ -100,55 +100,57 @@ formProfile.addEventListener('submit', handleProfileFormSubmit);
 
 
 class Card {
-  constructor (caption, image, templateSelector){
-    this._caption=caption;
-    this._image=image;
-    this._templateSelector=templateSelector;
+  constructor(caption, image, templateSelector) {
+    this._caption = caption;
+    this._image = image;
+    this._templateSelector = templateSelector;
   }
 
-  _like(){
-    this._isliked=!this._isliked;
-  }
-
-  _getTemplate (){
+  _getTemplate() {
     const cardElement = document
-    .querySelector(this._templateSelector)
-    .content
-    .querySelector('.element')
-    .cloneNode(true);
-    
-  // вернём DOM-элемент карточки
+      .querySelector(this._templateSelector)
+      .content
+      .querySelector('.element')
+      .cloneNode(true);
+
+    // вернём DOM-элемент карточки
     return cardElement;
   }
 
+  // Обработчик клика на лайк
+  _handleLikeClick() {
+    this._buttonLike.classList.toggle('element__like_active');
+  }
+
+  // Обработчик клика на корзину
+  _handleTrashClick() {
+    this._elementClone.remove();
+  }
+
+  // Обработчик клика на изображение карточки
+  _handleImageClick() {
+    openPopupImage(this._image, this._caption);
+  }
+
   //Создание новой карточки
-  generateCard (){
-    const elementClone = this._getTemplate();
+  generateCard() {
+    this._elementClone = this._getTemplate();
 
-    const buttonLike = elementClone.querySelector('.element__like');
-    const buttonTrash = elementClone.querySelector('.element__trash');
+    this._buttonLike = this._elementClone.querySelector('.element__like');
+    this._buttonTrash = this._elementClone.querySelector('.element__trash');
 
-    const imageElement = elementClone.querySelector('.element__image');
-    const captionElement = elementClone.querySelector('.element__caption');
+    this._imageElement = this._elementClone.querySelector('.element__image');
+    this._captionElement = this._elementClone.querySelector('.element__caption');
 
-    captionElement.textContent = this._caption;
-    imageElement.src = this._image;
-    imageElement.alt = this._caption;
+    this._captionElement.textContent = this._caption;
+    this._imageElement.src = this._image;
+    this._imageElement.alt = this._caption;
 
-    buttonLike.addEventListener('click', function (evt) {
-      evt.target.classList.toggle('element__like_active');
-    });
+    this._buttonLike.addEventListener('click', () => this._handleLikeClick());
+    this._buttonTrash.addEventListener('click', () => this._handleTrashClick());
+    this._imageElement.addEventListener('click', () => this._handleImageClick());
 
-    buttonTrash.addEventListener('click', function () {
-      elementClone.remove();
-    });
-
-    imageElement.addEventListener('click', function (evt) {
-      openPopupImage(evt.target.src, evt.target.alt);
-    });
-
-    return elementClone;
-
+    return this._elementClone;
   }
 }
 
@@ -156,8 +158,7 @@ const elements = document.querySelector('.elements__list');
 
 // функция перебора массива
 initialCards.forEach(function (cardAttributes) {
-  const card=new Card (cardAttributes.name, cardAttributes.link, '#element-template');
-  console.log(card);
+  const card = new Card(cardAttributes.name, cardAttributes.link, '#element-template');
   const element = card.generateCard();
   elements.prepend(element);
 });
@@ -175,8 +176,7 @@ function openPopupImage(link, caption) {
 function handleElementFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const card=new Card (inputElementName.value, inputElementLink.value, '#element-template');
-  console.log(card);
+  const card = new Card(inputElementName.value, inputElementLink.value, '#element-template');
   const element = card.generateCard();
 
   elements.prepend(element);
