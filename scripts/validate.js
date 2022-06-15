@@ -36,13 +36,11 @@ class FormValidator {
   };
 
   _toggleButtonState = (inputList, buttonElement) => {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._options.inactiveButtonClass);
-      buttonElement.disabled = true;
-    } else {
-      buttonElement.classList.remove(this._options.inactiveButtonClass);
-      buttonElement.disabled = false;
-    }
+  if (this._hasInvalidInput(inputList)) {
+    disableSubmit(buttonElement, this._options);
+  } else {
+    enableSubmit(buttonElement, this._options);
+  }
   };
 
   _setEventListeners = () => {
@@ -82,6 +80,17 @@ const enableValidation = (options) => {
     validator.enableValidation();
   });
 };
+
+// Блокировка кнопки submit
+function disableSubmit(buttonElement, options) {
+  buttonElement.classList.add(options.inactiveButtonClass);
+  buttonElement.disabled = true;
+};
+
+function enableSubmit(buttonElement, options) {
+  buttonElement.classList.remove(options.inactiveButtonClass);
+  buttonElement.disabled = false;
+}
 
 // Включение валидации вызовом enableValidation
 // Все настройки передаются при вызове
