@@ -57,9 +57,7 @@ function openPopupElement() {
   inputElementName.value = '';
   inputElementLink.value = '';
 
-  disableSubmit(buttonSaveElement, {
-    inactiveButtonClass: 'popup__save-button_inactive'
-  });
+  formElement.dispatchEvent(new CustomEvent("open"));
 }
 
 buttonEdit.addEventListener('click', () => openPopupProfile());
@@ -180,12 +178,9 @@ function openPopupImage(link, caption) {
 // она никуда отправляться не будет
 function handleElementFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
   const card = new Card(inputElementName.value, inputElementLink.value, '#element-template');
   const element = card.generateCard();
-
   elements.prepend(element);
-
   closePopup(popupElement);
 }
 

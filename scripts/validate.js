@@ -7,9 +7,9 @@ class FormValidator {
 
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      showInputError(this._formElement, inputElement, inputElement.validationMessage, this._options);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      hideInputError(this._formElement, inputElement, this._options);
+      this._hideInputError(inputElement);
     }
   }
 
@@ -36,16 +36,21 @@ class FormValidator {
   };
 
   _toggleButtonState = (inputList, buttonElement) => {
-  if (this._hasInvalidInput(inputList)) {
-    disableSubmit(buttonElement, this._options);
-  } else {
-    enableSubmit(buttonElement, this._options);
-  }
+    if (this._hasInvalidInput(inputList)) {
+      this._disableSubmit(buttonElement, this._options);
+    } else {
+      this._enableSubmit(buttonElement, this._options);
+    }
   };
 
   _setEventListeners = () => {
     const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
     const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
+
+    this._formElement.addEventListener('open', () => {
+      this._disableSubmit(buttonElement);
+    });
+
     this._toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
@@ -60,6 +65,17 @@ class FormValidator {
       return !inputElement.validity.valid;
     })
   };
+
+  // Блокировка кнопки submit
+  _disableSubmit(buttonElement) {
+    buttonElement.classList.add(this._options.inactiveButtonClass);
+    buttonElement.disabled = true;
+  };
+
+  _enableSubmit(buttonElement) {
+    buttonElement.classList.remove(this._options.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
 
   enableValidation() {
     this._formElement.addEventListener('submit', function (evt) {
@@ -80,17 +96,6 @@ const enableValidation = (options) => {
     validator.enableValidation();
   });
 };
-
-// Блокировка кнопки submit
-function disableSubmit(buttonElement, options) {
-  buttonElement.classList.add(options.inactiveButtonClass);
-  buttonElement.disabled = true;
-};
-
-function enableSubmit(buttonElement, options) {
-  buttonElement.classList.remove(options.inactiveButtonClass);
-  buttonElement.disabled = false;
-}
 
 // Включение валидации вызовом enableValidation
 // Все настройки передаются при вызове
