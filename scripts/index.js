@@ -1,3 +1,13 @@
+import {
+  initialCards
+} from './cards.js';
+import {
+  Card
+} from './Card.js';
+import {
+  FormValidator
+} from './FormValidator.js';
+
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
@@ -102,61 +112,6 @@ function handleProfileFormSubmit(evt) {
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 
 
-class Card {
-  constructor(caption, image, templateSelector) {
-    this._caption = caption;
-    this._image = image;
-    this._templateSelector = templateSelector;
-  }
-
-  _getTemplate() {
-    const cardElement = document
-      .querySelector(this._templateSelector)
-      .content
-      .querySelector('.element')
-      .cloneNode(true);
-
-    // вернём DOM-элемент карточки
-    return cardElement;
-  }
-
-  // Обработчик клика на лайк
-  _handleLikeClick() {
-    this._buttonLike.classList.toggle('element__like_active');
-  }
-
-  // Обработчик клика на корзину
-  _handleTrashClick() {
-    this._elementClone.remove();
-  }
-
-  // Обработчик клика на изображение карточки
-  _handleImageClick() {
-    openPopupImage(this._image, this._caption);
-  }
-
-  //Создание новой карточки
-  generateCard() {
-    this._elementClone = this._getTemplate();
-
-    this._buttonLike = this._elementClone.querySelector('.element__like');
-    this._buttonTrash = this._elementClone.querySelector('.element__trash');
-
-    this._imageElement = this._elementClone.querySelector('.element__image');
-    this._captionElement = this._elementClone.querySelector('.element__caption');
-
-    this._captionElement.textContent = this._caption;
-    this._imageElement.src = this._image;
-    this._imageElement.alt = this._caption;
-
-    this._buttonLike.addEventListener('click', () => this._handleLikeClick());
-    this._buttonTrash.addEventListener('click', () => this._handleTrashClick());
-    this._imageElement.addEventListener('click', () => this._handleImageClick());
-
-    return this._elementClone;
-  }
-}
-
 const elements = document.querySelector('.elements__list');
 
 // функция перебора массива
@@ -185,3 +140,23 @@ function handleElementFormSubmit(evt) {
 }
 
 formElement.addEventListener('submit', handleElementFormSubmit);
+
+const enableValidation = (options) => {
+  const formList = Array.from(document.querySelectorAll(options.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(options, formElement);
+    validator.enableValidation();
+  });
+};
+
+// Включение валидации вызовом enableValidation
+// Все настройки передаются при вызове
+enableValidation({
+  formSelector: '.form',
+  fieldsetSelector: '.popup__form-set',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+});
