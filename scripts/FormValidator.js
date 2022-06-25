@@ -35,46 +35,42 @@ export class FormValidator {
         }
     };
 
-    _toggleButtonState = (inputList, buttonElement) => {
-        if (this._hasInvalidInput(inputList)) {
-            this._disableSubmit(buttonElement, this._options);
+    toggleButtonState = () => {
+        if (this._hasInvalidInput()) {
+            this._disableSubmit(this._buttonElement, this._options);
         } else {
-            this._enableSubmit(buttonElement, this._options);
+            this._enableSubmit(this._buttonElement, this._options);
         }
     };
 
     _setEventListeners = () => {
-        const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
-        const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+        this._buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
 
-        this._formElement.addEventListener('open', () => {
-            this._disableSubmit(buttonElement);
-        });
-
-        this._toggleButtonState(inputList, buttonElement);
-        inputList.forEach((inputElement) => {
+        this.toggleButtonState();
+        this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
-                this._toggleButtonState(inputList, buttonElement);
+                this.toggleButtonState();
             });
         });
     };
 
-    _hasInvalidInput = (inputList) => {
-        return inputList.some((inputElement) => {
+    _hasInvalidInput = () => {
+        return this._inputList.some((inputElement) => {
             return !inputElement.validity.valid;
         })
     };
 
     // Блокировка кнопки submit
-    _disableSubmit(buttonElement) {
-        buttonElement.classList.add(this._options.inactiveButtonClass);
-        buttonElement.disabled = true;
+    _disableSubmit() {
+        this._buttonElement.classList.add(this._options.inactiveButtonClass);
+        this._buttonElement.disabled = true;
     };
 
-    _enableSubmit(buttonElement) {
-        buttonElement.classList.remove(this._options.inactiveButtonClass);
-        buttonElement.disabled = false;
+    _enableSubmit() {
+        this._buttonElement.classList.remove(this._options.inactiveButtonClass);
+        this._buttonElement.disabled = false;
     }
 
     enableValidation() {
@@ -84,7 +80,14 @@ export class FormValidator {
 
         const fieldsetList = Array.from(this._formElement.querySelectorAll(this._options.fieldsetSelector));
         fieldsetList.forEach((fieldSet) => {
-            this._setEventListeners(fieldSet, this._options);
+            this._setEventListeners(fieldSet);
+        });
+    }
+
+    resetValidation() {
+        this.toggleButtonState();
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
         });
     }
 }

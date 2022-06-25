@@ -1,8 +1,9 @@
 export class Card {
-    constructor(caption, image, templateSelector) {
+    constructor(caption, image, templateSelector, openPopupImage) {
         this._caption = caption;
         this._image = image;
         this._templateSelector = templateSelector;
+        this._openPopupImage = openPopupImage;
     }
 
     _getTemplate() {
@@ -24,11 +25,7 @@ export class Card {
     // Обработчик клика на корзину
     _handleTrashClick() {
         this._elementClone.remove();
-    }
-
-    // Обработчик клика на изображение карточки
-    _handleImageClick() {
-        openPopupImage(this._image, this._caption);
+        this._elementClone = null;
     }
 
     //Создание новой карточки
@@ -47,7 +44,7 @@ export class Card {
 
         this._buttonLike.addEventListener('click', () => this._handleLikeClick());
         this._buttonTrash.addEventListener('click', () => this._handleTrashClick());
-        this._imageElement.addEventListener('click', () => this._handleImageClick());
+        this._imageElement.addEventListener('click', () => this._openPopupImage(this._image, this._caption));
 
         return this._elementClone;
     }
