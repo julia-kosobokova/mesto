@@ -135,10 +135,6 @@ function createCard(caption, image, templateSelector, openPopupImage) {
   return element;
 }
 
-function insertCard(element) {
- elements.prepend(element);
-}
-
 //Создание экземпляра класса Section для заполнения блока с карточками
 const elementsSection = new Section({
   items: initialCards,
@@ -159,7 +155,7 @@ function openPopupImage(link, caption) {
 function handleElementFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const element = createCard(inputElementName.value, inputElementLink.value, '#element-template', openPopupImage);
-  insertCard(element);
+  elementsSection.addItem(element);
   closePopup(popupElement);
 }
 
