@@ -7,6 +7,9 @@ import {
 import {
   FormValidator
 } from './FormValidator.js';
+import {
+  Section
+} from './Section.js';
 
 const options = {
   formSelector: '.form',
@@ -133,14 +136,15 @@ function createCard(caption, image, templateSelector, openPopupImage) {
 }
 
 function insertCard(element) {
-  elements.prepend(element);
+ elements.prepend(element);
 }
 
-// функция перебора массива
-initialCards.forEach(function (cardAttributes) {
-  const element = createCard(cardAttributes.name, cardAttributes.link, '#element-template', openPopupImage);
-  insertCard(element);
-});
+//Создание экземпляра класса Section для заполнения блока с карточками
+const elementsSection = new Section({
+  items: initialCards,
+  renderer: (name, link) => createCard(name, link, '#element-template', openPopupImage)
+}, '.elements__list');
+elementsSection.generate();
 
 // Функция открытия карточки
 function openPopupImage(link, caption) {
