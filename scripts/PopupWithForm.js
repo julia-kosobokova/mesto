@@ -1,4 +1,4 @@
-class PopupWithForm {
+class PopupWithForm extends Popup{
     constructor(){
         
     }

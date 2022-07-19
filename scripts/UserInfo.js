@@ -1,5 +1,11 @@
 class UserInfo {
-    constructor(){
+    constructor({}){
+        
+    }
+    getUserInfo() {
+
+    }   
+    setUserInfo() {
         
     }
 }

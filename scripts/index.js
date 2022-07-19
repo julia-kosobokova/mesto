@@ -10,6 +10,9 @@ import {
 import {
   Section
 } from './Section.js';
+import {
+  Popup
+} from './Popup.js';
 
 const options = {
   formSelector: '.form',
@@ -59,9 +62,9 @@ const elementValidation = new FormValidator(options, formElement);
 profileValidation.enableValidation();
 elementValidation.enableValidation();
 
-let escEventListener;
+// let escEventListener;
 
-// Открытие popup
+/// Открытие popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   escEventListener = (evt) => escPopup(evt, popup);
@@ -69,17 +72,21 @@ function openPopup(popup) {
   popup.addEventListener('mousedown', closeOverlay);
 }
 
+const instancePopupProfile=new Popup('.popup_profile');
+const instancePopupElement=new Popup('.popup_element');
+const instancePopupImage=new Popup('.popup_image');
+
 // Popup окна редактирования профиля
 function openPopupProfile() {
   inputProfileName.value = nameProfile.textContent;
   inputProfileDescription.value = descriptionProfile.textContent;
   profileValidation.resetValidation();
-  openPopup(popupProfile);
+  instancePopupProfile.open(popupProfile);
 }
 
 // Popup окна добавления карточки
 function openPopupElement() {
-  openPopup(popupElement);
+  instancePopupElement.open(popupElement);
   inputElementName.value = '';
   inputElementLink.value = '';
   elementValidation.resetValidation();
@@ -88,29 +95,29 @@ function openPopupElement() {
 buttonEdit.addEventListener('click', () => openPopupProfile());
 buttonAdd.addEventListener('click', () => openPopupElement());
 
-//Закрытие popup
+///Закрытие popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escEventListener);
   popup.removeEventListener('mousedown', closeOverlay);
 }
 
-// Закрытие popup нажатием на Esc
+/// Закрытие popup нажатием на Esc
 function escPopup(evt, popup) {
   if (evt.key === 'Escape') {
     closePopup(popup);
   }
 }
 
-buttonCloseProfile.addEventListener('click', () => closePopup(popupProfile));
-buttonCloseElement.addEventListener('click', () => closePopup(popupElement));
-buttonCloseImage.addEventListener('click', () => closePopup(popupImage));
+buttonCloseProfile.addEventListener('click', () => instancePopupProfile.close());
+buttonCloseElement.addEventListener('click', () => instancePopupElement.close());
+buttonCloseImage.addEventListener('click', () => instancePopupImage.close());
 
-//Закрытые popup кликом на overlay
+///Закрытые popup кликом на overlay
 function closeOverlay(evt) {
-  if (evt.target === evt.target.closest('.popup')) {
-    closePopup(evt.target);
-  }
+ if (evt.target === evt.target.closest('.popup')) {
+   closePopup(evt.target);
+ }
 }
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
