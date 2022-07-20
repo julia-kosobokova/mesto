@@ -2,33 +2,34 @@ export class Popup {
     constructor(popupSelector){
         this._popup = document.querySelector(popupSelector);
     }
+
     open() {
         console.log('Popup.open');
         this._popup.classList.add('popup_opened');
-        this._escEventListener = (evt) => escPopup(evt);
-  }
+        this._escEventListener = (evt) => this._handleEscClose(evt);
+        this.setEventListeners();
+    }
     
     close() {
         this._popup.classList.remove('popup_opened');
         document.removeEventListener('keydown', this._escEventListener);
         this._popup.removeEventListener('mousedown', this._closeOverlay);
-          }
-    
-    _handleEscClose(evt) {
-        if (evt.key === 'Escape') {
-        this._close(this._popup);
-            }
-          }
+    }
     
     setEventListeners() {
-        document.addEventListener('keydown', this._escEventListener);
-        this._popup.addEventListener('mousedown', this._closeOverlay);
+        document.addEventListener('keydown', this._escEventListener.bind(this));
+        this._popup.addEventListener('mousedown', this._closeOverlay.bind(this));
     }
 
-    ///Закрытые popup кликом на overlay
+    _handleEscClose(evt) {
+        if (evt.key === 'Escape') {
+            this.close();
+        }
+    }
+    
     _closeOverlay(evt) {
-        if (evt.target === evt.target.closest(this._popup)) {
-            this._close(evt.target);
+        if (evt.target === this._popup) {
+            this.close(evt.target);
         }
     }
 }

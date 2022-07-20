@@ -65,12 +65,12 @@ elementValidation.enableValidation();
 // let escEventListener;
 
 /// Открытие popup
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  escEventListener = (evt) => escPopup(evt, popup);
-  document.addEventListener('keydown', escEventListener);
-  popup.addEventListener('mousedown', closeOverlay);
-}
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   escEventListener = (evt) => escPopup(evt, popup);
+//   document.addEventListener('keydown', escEventListener);
+//   popup.addEventListener('mousedown', closeOverlay);
+// }
 
 const instancePopupProfile=new Popup('.popup_profile');
 const instancePopupElement=new Popup('.popup_element');
@@ -96,29 +96,29 @@ buttonEdit.addEventListener('click', () => openPopupProfile());
 buttonAdd.addEventListener('click', () => openPopupElement());
 
 ///Закрытие popup
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escEventListener);
-  popup.removeEventListener('mousedown', closeOverlay);
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', escEventListener);
+//   popup.removeEventListener('mousedown', closeOverlay);
+// }
 
 /// Закрытие popup нажатием на Esc
-function escPopup(evt, popup) {
-  if (evt.key === 'Escape') {
-    closePopup(popup);
-  }
-}
+// function escPopup(evt, popup) {
+//   if (evt.key === 'Escape') {
+//     closePopup(popup);
+//   }
+// }
 
 buttonCloseProfile.addEventListener('click', () => instancePopupProfile.close());
 buttonCloseElement.addEventListener('click', () => instancePopupElement.close());
 buttonCloseImage.addEventListener('click', () => instancePopupImage.close());
 
 ///Закрытые popup кликом на overlay
-function closeOverlay(evt) {
- if (evt.target === evt.target.closest('.popup')) {
-   closePopup(evt.target);
- }
-}
+// function closeOverlay(evt) {
+//  if (evt.target === evt.target.closest('.popup')) {
+//    closePopup(evt.target);
+//  }
+// }
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
