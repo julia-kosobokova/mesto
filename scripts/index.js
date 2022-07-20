@@ -151,7 +151,7 @@ elementsSection.generate();
 
 // Функция открытия карточки
 function openPopupImage(link, caption) {
-  openPopup(popupImage);
+  instancePopupImage.open();
   image.src = link;
   image.alt = caption;
   text.textContent = caption;
