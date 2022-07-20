@@ -128,7 +128,7 @@ function handleProfileFormSubmit(evt) {
   nameProfile.textContent = inputProfileName.value;
   descriptionProfile.textContent = inputProfileDescription.value;
 
-  closePopup(popupProfile);
+  instancePopupProfile.close();
 }
 
 formProfile.addEventListener('submit', handleProfileFormSubmit);
