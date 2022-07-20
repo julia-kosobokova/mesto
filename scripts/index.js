@@ -29,11 +29,11 @@ const buttonAdd = document.querySelector('.profile__add-button');
 
 const popupProfile = document.querySelector('.popup_profile');
 const popupContainerProfile = popupProfile.querySelector('.popup__container');
-const buttonCloseProfile = popupProfile.querySelector('.popup__close-button');
+//const buttonCloseProfile = popupProfile.querySelector('.popup__close-button');
 
 const popupElement = document.querySelector('.popup_element');
 const popupContainerElement = popupElement.querySelector('.popup__container');
-const buttonCloseElement = popupElement.querySelector('.popup__close-button');
+//const buttonCloseElement = popupElement.querySelector('.popup__close-button');
 const buttonSaveElement = popupElement.querySelector('.popup__save-button')
 
 const popupImage = document.querySelector('.popup_image');
@@ -109,9 +109,9 @@ buttonAdd.addEventListener('click', () => openPopupElement());
 //   }
 // }
 
-buttonCloseProfile.addEventListener('click', () => instancePopupProfile.close());
-buttonCloseElement.addEventListener('click', () => instancePopupElement.close());
-buttonCloseImage.addEventListener('click', () => instancePopupImage.close());
+//buttonCloseProfile.addEventListener('click', () => instancePopupProfile.close());
+//buttonCloseElement.addEventListener('click', () => instancePopupElement.close());
+//buttonCloseImage.addEventListener('click', () => instancePopupImage.close());
 
 ///Закрытые popup кликом на overlay
 // function closeOverlay(evt) {
