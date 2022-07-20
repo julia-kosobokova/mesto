@@ -163,7 +163,7 @@ function handleElementFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const element = createCard(inputElementName.value, inputElementLink.value, '#element-template', openPopupImage);
   elementsSection.addItem(element);
-  closePopup(popupElement);
+  instancePopupElement.close();
 }
 
 formElement.addEventListener('submit', handleElementFormSubmit);
