@@ -1,18 +1,10 @@
-import {
-  initialCards
-} from './cards.js';
-import {
-  Card
-} from './Card.js';
-import {
-  FormValidator
-} from './FormValidator.js';
-import {
-  Section
-} from './Section.js';
-import {
-  Popup
-} from './Popup.js';
+import {initialCards} from './cards.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {Section} from './Section.js';
+import {Popup} from './Popup.js';
+import {PopupWithImage} from './PopupWithImage.js';
+import {PopupWithForm} from './PopupWithForm.js';
 
 const options = {
   formSelector: '.form',
@@ -52,9 +44,6 @@ const elementTemplate = document
   .querySelector('#element-template')
   .content;
 
-const image = popupImage.querySelector('.popup__image');
-const text = popupImage.querySelector('.popup__text');
-
 const profileValidation = new FormValidator(options, formProfile);
 const elementValidation = new FormValidator(options, formElement);
 profileValidation.enableValidation();
@@ -62,7 +51,7 @@ elementValidation.enableValidation();
 
 const instancePopupProfile=new Popup('.popup_profile');
 const instancePopupElement=new Popup('.popup_element');
-const instancePopupImage=new Popup('.popup_image');
+const instancePopupImage=new PopupWithImage('.popup_image');
 
 // Popup окна редактирования профиля
 function openPopupProfile() {
@@ -114,10 +103,7 @@ elementsSection.generate();
 
 // Функция открытия карточки
 function openPopupImage(link, caption) {
-  instancePopupImage.open();
-  image.src = link;
-  image.alt = caption;
-  text.textContent = caption;
+  instancePopupImage.open(link, caption);
 }
 
 // Обработчик «отправки» формы добавления карточки, хотя пока
