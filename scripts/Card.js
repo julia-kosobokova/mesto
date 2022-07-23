@@ -1,9 +1,9 @@
 export class Card {
-    constructor(caption, image, templateSelector, openPopupImage) {
+    constructor(caption, image, templateSelector, handleCardClick) {
         this._caption = caption;
         this._image = image;
         this._templateSelector = templateSelector;
-        this._openPopupImage = openPopupImage;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -44,7 +44,7 @@ export class Card {
 
         this._buttonLike.addEventListener('click', () => this._handleLikeClick());
         this._buttonTrash.addEventListener('click', () => this._handleTrashClick());
-        this._imageElement.addEventListener('click', () => this._openPopupImage(this._image, this._caption));
+        this._imageElement.addEventListener('click', () => this._handleCardClick(this._image, this._caption));
 
         return this._elementClone;
     }
