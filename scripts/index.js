@@ -33,8 +33,8 @@ const popupElement = document.querySelector('.popup_element');
 
 const inputProfileName = popupProfile.querySelector('.popup__input_type_name');
 const inputProfileDescription = popupProfile.querySelector('.popup__input_type_description');
-const nameProfile = document.querySelector('.profile__name');
-const descriptionProfile = document.querySelector('.profile__description');
+//const nameProfile = document.querySelector('.profile__name');
+//const descriptionProfile = document.querySelector('.profile__description');
 const formProfile = popupProfile.querySelector('.popup__form');
 
 const inputElementName = popupElement.querySelector('.popup__input_type_name');
@@ -51,17 +51,18 @@ elementValidation.enableValidation();
 const instancePopupProfile=new PopupWithForm('.popup_profile',handleProfileFormSubmit,profileValidation);
 const instancePopupElement=new PopupWithForm('.popup_element',handleElementFormSubmit,elementValidation);
 const instancePopupImage=new PopupWithImage('.popup_image');
-//const instanceUserInfo=new UserInfo(nameProfile,descriptionProfile);
+const instanceUserInfo=new UserInfo({nameSelector:'.profile__name',descriptionSelector:'.profile__description'});
 
-////// Popup окна редактирования профиля
+// Popup окна редактирования профиля
 function openPopupProfile() {
-  inputProfileName.value = nameProfile.textContent;
-  inputProfileDescription.value = descriptionProfile.textContent;
+  const userInfo=instanceUserInfo.getUserInfo();
+  inputProfileName.value = userInfo.name;
+  inputProfileDescription.value = userInfo.description;
   profileValidation.resetValidation();
   instancePopupProfile.open();
 }
 
-/// Popup окна добавления карточки
+// Popup окна добавления карточки
 function openPopupElement() {
   instancePopupElement.open();
   inputElementName.value = '';
@@ -72,12 +73,14 @@ function openPopupElement() {
 buttonEdit.addEventListener('click', () => openPopupProfile());
 buttonAdd.addEventListener('click', () => openPopupElement());
 
-///// Обработчик «отправки» формы редактирования профиля, хотя пока
+// Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleProfileFormSubmit(evt,inputValues) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  nameProfile.textContent = inputValues.name;
-  descriptionProfile.textContent = inputValues.description;
+  const userInfo={};
+  userInfo.name = inputValues.name;
+  userInfo.description = inputValues.description;
+  instanceUserInfo.setUserInfo(userInfo);
 
   instancePopupProfile.close();
 }

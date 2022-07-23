@@ -1,23 +1,18 @@
 export class UserInfo {
     constructor({nameSelector,descriptionSelector}){
-        this._inputProfileName=nameSelector;
-        this._inputProfileDescription=descriptionSelector;
+        this._nameProfile=document.querySelector(nameSelector);
+        this._descriptionProfile=document.querySelector(descriptionSelector);
     }
 
     getUserInfo() {
-        //function openPopupProfile() {
-            this._inputProfileName.value = nameProfile.textContent;
-            this._inputProfileDescription.value = descriptionProfile.textContent;
-            profileValidation.resetValidation();
-            instancePopupProfile.open();
-         // }
+        const userInfo={};
+        userInfo.name=this._nameProfile.textContent;
+        userInfo.description = this._descriptionProfile.textContent;
+        return userInfo;
     }   
-    setUserInfo() {
-        function handleProfileFormSubmit(evt) {
-            evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-          
-            nameProfile.textContent = inputProfileName.value;
-            descriptionProfile.textContent = inputProfileDescription.value;
-        }
+
+    setUserInfo(userInfo) {
+        this._nameProfile.textContent = userInfo.name;
+        this._descriptionProfile.textContent = userInfo.description;
     }
 }
