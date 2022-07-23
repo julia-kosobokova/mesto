@@ -2,7 +2,7 @@ import {initialCards} from './cards.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 import {Section} from './Section.js';
-import {Popup} from './Popup.js';
+//import {Popup} from './Popup.js';
 import {PopupWithImage} from './PopupWithImage.js';
 import {PopupWithForm} from './PopupWithForm.js';
 import {UserInfo} from './UserInfo.js';
@@ -21,15 +21,15 @@ const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
 const popupProfile = document.querySelector('.popup_profile');
-const popupContainerProfile = popupProfile.querySelector('.popup__container');
+//const popupContainerProfile = popupProfile.querySelector('.popup__container');
 
 const popupElement = document.querySelector('.popup_element');
-const popupContainerElement = popupElement.querySelector('.popup__container');
-const buttonSaveElement = popupElement.querySelector('.popup__save-button')
+//const popupContainerElement = popupElement.querySelector('.popup__container');
+//const buttonSaveElement = popupElement.querySelector('.popup__save-button')
 
-const popupImage = document.querySelector('.popup_image');
-const popupContainerImage = popupImage.querySelector('.popup__container');
-const buttonCloseImage = popupImage.querySelector('.popup__close-button');
+//const popupImage = document.querySelector('.popup_image');
+//const popupContainerImage = popupImage.querySelector('.popup__container');
+//const buttonCloseImage = popupImage.querySelector('.popup__close-button');
 
 const inputProfileName = popupProfile.querySelector('.popup__input_type_name');
 const inputProfileDescription = popupProfile.querySelector('.popup__input_type_description');
@@ -41,14 +41,14 @@ const inputElementName = popupElement.querySelector('.popup__input_type_name');
 const inputElementLink = popupElement.querySelector('.popup__input_type_link');
 const formElement = popupElement.querySelector('.popup__form');
 
-const elementTemplate = document.querySelector('#element-template').content;
+//const elementTemplate = document.querySelector('#element-template').content;
 
 const profileValidation = new FormValidator(options, formProfile);
 const elementValidation = new FormValidator(options, formElement);
 profileValidation.enableValidation();
 elementValidation.enableValidation();
 
-const instancePopupProfile=new Popup('.popup_profile');
+const instancePopupProfile=new PopupWithForm('.popup_profile',handleProfileFormSubmit,profileValidation);
 const instancePopupElement=new PopupWithForm('.popup_element',handleElementFormSubmit,elementValidation);
 const instancePopupImage=new PopupWithImage('.popup_image');
 //const instanceUserInfo=new UserInfo(nameProfile,descriptionProfile);
@@ -74,17 +74,13 @@ buttonAdd.addEventListener('click', () => openPopupElement());
 
 ///// Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
-function handleProfileFormSubmit(evt) {
+function handleProfileFormSubmit(evt,inputValues) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  nameProfile.textContent = inputProfileName.value;
-  descriptionProfile.textContent = inputProfileDescription.value;
+  nameProfile.textContent = inputValues.name;
+  descriptionProfile.textContent = inputValues.description;
 
   instancePopupProfile.close();
 }
-
-formProfile.addEventListener('submit', handleProfileFormSubmit);
-
 
 const elements = document.querySelector('.elements__list');
 
