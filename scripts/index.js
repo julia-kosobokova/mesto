@@ -37,14 +37,17 @@ const elementValidation = new FormValidator(options, formElement);
 profileValidation.enableValidation();
 elementValidation.enableValidation();
 
-const instancePopupProfile=new PopupWithForm('.popup_profile',handleProfileFormSubmit,profileValidation);
-const instancePopupElement=new PopupWithForm('.popup_element',handleElementFormSubmit,elementValidation);
-const instancePopupImage=new PopupWithImage('.popup_image');
-const instanceUserInfo=new UserInfo({nameSelector:'.profile__name',descriptionSelector:'.profile__description'});
+const instancePopupProfile = new PopupWithForm('.popup_profile', handleProfileFormSubmit, profileValidation);
+const instancePopupElement = new PopupWithForm('.popup_element', handleElementFormSubmit, elementValidation);
+const instancePopupImage = new PopupWithImage('.popup_image');
+const instanceUserInfo = new UserInfo({
+  nameSelector: '.profile__name',
+  descriptionSelector: '.profile__description'
+});
 
 // Popup окна редактирования профиля
 function openPopupProfile() {
-  const userInfo=instanceUserInfo.getUserInfo();
+  const userInfo = instanceUserInfo.getUserInfo();
   inputProfileName.value = userInfo.name;
   inputProfileDescription.value = userInfo.description;
   profileValidation.resetValidation();
@@ -64,9 +67,9 @@ buttonAdd.addEventListener('click', () => openPopupElement());
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
-function handleProfileFormSubmit(evt,inputValues) {
+function handleProfileFormSubmit(evt, inputValues) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  const userInfo={};
+  const userInfo = {};
   userInfo.name = inputValues.name;
   userInfo.description = inputValues.description;
   instanceUserInfo.setUserInfo(userInfo);
@@ -94,7 +97,7 @@ function openPopupImage(link, caption) {
 
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
-function handleElementFormSubmit(evt,inputValues) {
+function handleElementFormSubmit(evt, inputValues) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const element = createCard(inputValues.name, inputValues.link, '#element-template', openPopupImage);
   elementsSection.addItem(element);
