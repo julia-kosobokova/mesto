@@ -5,6 +5,7 @@ import {Section} from './Section.js';
 import {Popup} from './Popup.js';
 import {PopupWithImage} from './PopupWithImage.js';
 import {PopupWithForm} from './PopupWithForm.js';
+import {UserInfo} from './UserInfo.js';
 
 const options = {
   formSelector: '.form',
@@ -40,9 +41,7 @@ const inputElementName = popupElement.querySelector('.popup__input_type_name');
 const inputElementLink = popupElement.querySelector('.popup__input_type_link');
 const formElement = popupElement.querySelector('.popup__form');
 
-const elementTemplate = document
-  .querySelector('#element-template')
-  .content;
+const elementTemplate = document.querySelector('#element-template').content;
 
 const profileValidation = new FormValidator(options, formProfile);
 const elementValidation = new FormValidator(options, formElement);
@@ -50,10 +49,11 @@ profileValidation.enableValidation();
 elementValidation.enableValidation();
 
 const instancePopupProfile=new Popup('.popup_profile');
-const instancePopupElement=new Popup('.popup_element');
+const instancePopupElement=new PopupWithForm('.popup_element',handleElementFormSubmit,elementValidation);
 const instancePopupImage=new PopupWithImage('.popup_image');
+//const instanceUserInfo=new UserInfo(nameProfile,descriptionProfile);
 
-// Popup окна редактирования профиля
+////// Popup окна редактирования профиля
 function openPopupProfile() {
   inputProfileName.value = nameProfile.textContent;
   inputProfileDescription.value = descriptionProfile.textContent;
@@ -61,7 +61,7 @@ function openPopupProfile() {
   instancePopupProfile.open();
 }
 
-// Popup окна добавления карточки
+/// Popup окна добавления карточки
 function openPopupElement() {
   instancePopupElement.open();
   inputElementName.value = '';
@@ -72,7 +72,7 @@ function openPopupElement() {
 buttonEdit.addEventListener('click', () => openPopupProfile());
 buttonAdd.addEventListener('click', () => openPopupElement());
 
-// Обработчик «отправки» формы редактирования профиля, хотя пока
+///// Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
@@ -108,11 +108,9 @@ function openPopupImage(link, caption) {
 
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
-function handleElementFormSubmit(evt) {
+function handleElementFormSubmit(evt,inputValues) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  const element = createCard(inputElementName.value, inputElementLink.value, '#element-template', openPopupImage);
+  const element = createCard(inputValues.name, inputValues.link, '#element-template', openPopupImage);
   elementsSection.addItem(element);
   instancePopupElement.close();
 }
-
-formElement.addEventListener('submit', handleElementFormSubmit);
