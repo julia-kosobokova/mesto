@@ -4,21 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
+  <!-- <link rel="stylesheet" href="pages/index.css"> -->
   <title lang="en">Mesto</title>
 </head>
 
 <body class="page">
   <div class="top">
     <header class="header">
-      <img src="./images/header-logo.svg" alt="Mesto Russia" lang="en" class="header__logo">
+      <img src="<%= require('./images/header-logo.svg') %>" alt="Mesto Russia" lang="en" class="header__logo">
     </header>
 
     <main class="content">
 
       <section class="profile">
         <div class="profile__details">
-          <img src="./images/kusto.jpg" alt="Аватар" class="profile__avatar">
+          <img src="<%= require('./images/kusto.jpg') %>" alt="Аватар" class="profile__avatar">
           <div class="profile__info">
             <div>
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -96,7 +96,7 @@
     </li>
   </template>
 
-  <script type="module" src="./scripts/index.js"></script>
+  <!-- <script type="module" src="./scripts/index.js"></script> -->
 
 </body>
 
