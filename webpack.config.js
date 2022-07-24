@@ -18,6 +18,9 @@ module.exports = {
     
         open: true // сайт будет открываться сам при запуске npm run dev
       },
+      performance: {
+        maxAssetSize: 1000000,
+      },
       module: {
         rules: [ // rules — это массив правил добавим в него объект правил для бабеля
           {
@@ -47,7 +50,7 @@ module.exports = {
               loader: 'css-loader',
               options: { importLoaders: 1 }
             },
-            //'postcss-loader'
+            'postcss-loader'
           ]
           },
     ]
@@ -59,16 +62,5 @@ module.exports = {
         new CleanWebpackPlugin(), // использовали плагин
         new MiniCssExtractPlugin() // подключение плагина для объединения файлов
       ],
-      // loaders: [{
-      //   test: /\.m?js$/,
-      //   exclude: /(node_modules)/,
-      //   use: {
-      //     loader: 'babel-loader',
-      //     options: {
-      //       presets: ['@babel/preset-env'],
-      //     }
-      //   }
-      // }
-
-      // ]
+      
 };
