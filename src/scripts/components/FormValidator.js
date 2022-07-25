@@ -74,15 +74,8 @@ export class FormValidator {
     }
 
     enableValidation() {
-        this._formElement.addEventListener('submit', function (evt) {
-            evt.preventDefault();
-        });
-
-        const fieldsetList = Array.from(this._formElement.querySelectorAll(this._options.fieldsetSelector));
-        fieldsetList.forEach((fieldSet) => {
-            this._setEventListeners(fieldSet);
-        });
-    }
+        this._setEventListeners();
+     }
 
     resetValidation() {
         this.toggleButtonState();
