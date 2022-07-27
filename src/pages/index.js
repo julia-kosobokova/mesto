@@ -70,7 +70,7 @@ buttonAdd.addEventListener('click', () => openPopupCard());
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
-function handleProfileFormSubmit(evt, inputValues) {
+function handleProfileFormSubmit(inputValues) {
   instanceUserInfo.setUserInfo(inputValues);
   instancePopupProfile.close();
 }
@@ -95,7 +95,7 @@ function openPopupImage(link, caption) {
 
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
-function handleCardFormSubmit(evt, inputValues) {
+function handleCardFormSubmit(inputValues) {
   const card = createCard(inputValues.name, inputValues.link);
   cardsSection.addItem(card);
   instancePopupCard.close();

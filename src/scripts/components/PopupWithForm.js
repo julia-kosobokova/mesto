@@ -19,7 +19,7 @@ export class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit',
             (evt) => {
-                this._handleFormSubmit(evt, this._getInputValues());
+                this._handleFormSubmit(this._getInputValues());
                 evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
             }
         );
@@ -27,8 +27,6 @@ export class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        this._inputList.forEach((input) => {
-            input.value = '';
-        });
+        this._form.reset();       
     }
 }
