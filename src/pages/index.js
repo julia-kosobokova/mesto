@@ -6,6 +6,7 @@ import {Section} from '../scripts/components/Section.js';
 import {PopupWithImage} from '../scripts/components/PopupWithImage.js';
 import {PopupWithForm} from '../scripts/components/PopupWithForm.js';
 import {UserInfo} from '../scripts/components/UserInfo.js';
+import {Api} from '../scripts/components/Api.js';
 
 const options = {
   formSelector: '.form',
@@ -16,6 +17,14 @@ const options = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 };
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
+  headers: {
+    authorization: '2e553a64-7c1d-4473-abd0-835bab4139ba',
+    'Content-Type': 'application/json'
+  }
+}); 
 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -29,8 +38,6 @@ const inputProfileDescription = popupProfile.querySelector('.popup__input_type_d
 
 const formProfile = popupProfile.querySelector('.popup__form');
 
-//const inputElementName = popupCard.querySelector('.popup__input_type_name');
-//const inputElementLink = popupCard.querySelector('.popup__input_type_link');
 const formCard = popupCard.querySelector('.popup__form');
 
 const profileValidation = new FormValidator(options, formProfile);
@@ -47,8 +54,17 @@ instancePopupImage.setEventListeners();
 
 const instanceUserInfo = new UserInfo({
   nameSelector: '.profile__name',
-  descriptionSelector: '.profile__description'
+  descriptionSelector: '.profile__description',
+  avatarSelector: '.profile__avatar'
 });
+
+api.getUserInfo()
+  .then((res) => {
+    instanceUserInfo.setUserInfo({name: res.name, description: res.about, avatar:res.avatar})
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  }); 
 
 // Popup окна редактирования профиля
 function openPopupProfile() {
