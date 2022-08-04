@@ -97,8 +97,7 @@ function createCard(caption, image) {
 }
 
 //Создание экземпляра класса Section для заполнения блока с карточками
-const cardsSection = new Section(
-    (name, link) => createCard(name, link), '.elements__list');
+const cardsSection = new Section('.elements__list');
 
 api.getInitialCards()
   .then((initialCards) => {
