@@ -123,7 +123,14 @@ function openPopupImage(link, caption) {
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
 function handleCardFormSubmit(inputValues) {
-  const card = createCard(inputValues.name, inputValues.link);
-  cardsSection.addItem(card);
-  instancePopupCard.close();
+    api.saveNewCard(inputValues)
+    .then((res) => {
+      const card = createCard(inputValues.name, inputValues.link);
+      cardsSection.addItem(card);
+      instancePopupCard.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
 }

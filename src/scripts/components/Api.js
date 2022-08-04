@@ -32,6 +32,7 @@ export class Api {
             });
     }
 
+    // Сохранение профиля
     saveUserInfo(userInfo) {
         return fetch(this._options.baseUrl + '/users/me', {
             method: 'PATCH',
@@ -50,6 +51,23 @@ export class Api {
         });
     }
 
-
+    // Добавление новой карточки
+    saveNewCard(card) {
+        return fetch(this._options.baseUrl + '/cards', {
+            method: 'POST',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                name: card.name,
+                link: card.link
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            // если ошибка, отклоняем промис
+            return Promise.reject(`Ошибка: ${res.status}`);
+        });
+    }
 
 }
