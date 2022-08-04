@@ -1,5 +1,4 @@
 import '../pages/index.css';
-import {initialCards} from '../scripts/cards.js';
 import {Card} from '../scripts/components/Card.js';
 import {FormValidator} from '../scripts/components/FormValidator.js';
 import {Section} from '../scripts/components/Section.js';
@@ -63,7 +62,7 @@ api.getUserInfo()
     instanceUserInfo.setUserInfo({name: res.name, description: res.about, avatar:res.avatar})
   })
   .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
+    console.log(err);
   }); 
 
 // Popup окна редактирования профиля
@@ -98,11 +97,18 @@ function createCard(caption, image) {
 }
 
 //Создание экземпляра класса Section для заполнения блока с карточками
-const cardsSection = new Section({
-  items: initialCards,
-  renderer: (name, link) => createCard(name, link)
-}, '.elements__list');
-cardsSection.generate();
+const cardsSection = new Section(
+    (name, link) => createCard(name, link), '.elements__list');
+
+api.getInitialCards()
+  .then((initialCards) => {
+      initialCards.forEach((card)=>{
+      handleCardFormSubmit(card);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Функция открытия карточки
 function openPopupImage(link, caption) {
