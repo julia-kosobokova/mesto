@@ -86,8 +86,14 @@ buttonAdd.addEventListener('click', () => openPopupCard());
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleProfileFormSubmit(inputValues) {
-  instanceUserInfo.setUserInfo(inputValues);
-  instancePopupProfile.close();
+  api.saveUserInfo(inputValues)
+  .then((res) => {
+    instanceUserInfo.setUserInfo(inputValues);
+    instancePopupProfile.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 function createCard(caption, image) {

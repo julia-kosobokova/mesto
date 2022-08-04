@@ -32,5 +32,24 @@ export class Api {
             });
     }
 
+    saveUserInfo(userInfo) {
+        return fetch(this._options.baseUrl + '/users/me', {
+            method: 'PATCH',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                name: userInfo.name,
+                about: userInfo.description
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            // если ошибка, отклоняем промис
+            return Promise.reject(`Ошибка: ${res.status}`);
+        });
+    }
+
+
 
 }
