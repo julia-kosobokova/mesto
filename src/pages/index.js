@@ -50,6 +50,7 @@ const instancePopupConfirm = new PopupWithForm('.popup_confirm', handleConfirmFo
 const instancePopupImage = new PopupWithImage('.popup_image');
 instancePopupProfile.setEventListeners();
 instancePopupCard.setEventListeners();
+instancePopupConfirm.setEventListeners();
 instancePopupImage.setEventListeners();
 
 const instanceUserInfo = new UserInfo({
@@ -123,7 +124,7 @@ function openPopupImage(link, caption) {
 
 // Функция открытия окна подтверждения удаления карточки
 function openPopupConfirm() {
-  instancePopupConfirm.open()
+  instancePopupConfirm.open();
 }
 
 
@@ -142,5 +143,5 @@ function handleCardFormSubmit(inputValues) {
 }
 
 function handleConfirmFormSubmit() {
-  
+
 }
