@@ -1,10 +1,11 @@
 export class Card {
-    constructor(caption, image, likes, templateSelector, handleCardClick) {
+    constructor(caption, image, likes, templateSelector, handleCardClick, handleTrashClick) {
         this._caption = caption;
         this._image = image;
         this._likes= likes;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
+        this._handleTrashClick = handleTrashClick;
     }
 
     _getTemplate() {
@@ -24,10 +25,11 @@ export class Card {
     }
 
     // Обработчик клика на корзину
-    _handleTrashClick() {
-        this._elementClone.remove();
-        this._elementClone = null;
-    }
+   // _handleTrashClick() {
+
+        // this._elementClone.remove();
+        // this._elementClone = null;
+    //}
 
     //Создание новой карточки
     generateCard() {

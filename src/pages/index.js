@@ -46,6 +46,7 @@ cardValidation.enableValidation();
 
 const instancePopupProfile = new PopupWithForm('.popup_profile', handleProfileFormSubmit);
 const instancePopupCard = new PopupWithForm('.popup_element', handleCardFormSubmit);
+const instancePopupConfirm = new PopupWithForm('.popup_confirm', handleConfirmFormSubmit);
 const instancePopupImage = new PopupWithImage('.popup_image');
 instancePopupProfile.setEventListeners();
 instancePopupCard.setEventListeners();
@@ -97,7 +98,7 @@ function handleProfileFormSubmit(inputValues) {
 }
 
 function createCard(caption, image, likes) {
-  const card = new Card(caption, image, likes, '#element-template', openPopupImage);
+  const card = new Card(caption, image, likes, '#element-template', openPopupImage, openPopupConfirm);
   const element = card.generateCard();
   return element;
 }
@@ -120,6 +121,12 @@ function openPopupImage(link, caption) {
   instancePopupImage.open(link, caption);
 }
 
+// Функция открытия окна подтверждения удаления карточки
+function openPopupConfirm() {
+  instancePopupConfirm.open()
+}
+
+
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
 function handleCardFormSubmit(inputValues) {
@@ -131,6 +138,9 @@ function handleCardFormSubmit(inputValues) {
     })
     .catch((err) => {
       console.log(err);
-    });
+    });  
+}
+
+function handleConfirmFormSubmit() {
   
 }
