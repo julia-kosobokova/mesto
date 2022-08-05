@@ -96,8 +96,8 @@ function handleProfileFormSubmit(inputValues) {
   });
 }
 
-function createCard(caption, image) {
-  const card = new Card(caption, image, '#element-template', openPopupImage);
+function createCard(caption, image, likes) {
+  const card = new Card(caption, image, likes, '#element-template', openPopupImage);
   const element = card.generateCard();
   return element;
 }
@@ -125,7 +125,7 @@ function openPopupImage(link, caption) {
 function handleCardFormSubmit(inputValues) {
     api.saveNewCard(inputValues)
     .then((res) => {
-      const card = createCard(inputValues.name, inputValues.link);
+      const card = createCard(inputValues.name, inputValues.link, inputValues.likes);
       cardsSection.addItem(card);
       instancePopupCard.close();
     })

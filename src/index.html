@@ -84,12 +84,45 @@
     </div>
   </div>
 
+  <div class="popup popup_confirm">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form name="profileForm" class="form popup__form" novalidate>
+        <fieldset class="popup__form-set">
+          <button type="submit" class="popup__save-button">Да</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_update-avatar">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form name="profileForm" class="form popup__form" novalidate>
+        <fieldset class="popup__form-set">
+          <input type="text" name="name" placeholder="Введите имя" required class="popup__input popup__input_type_name"
+            id="name-input" minlength="2" maxlength="40">
+          <span class="popup__input-error name-input-error"></span>
+          <input type="text" name="description" placeholder="Введите описание" required
+            class="popup__input popup__input_type_description" id="description-input" minlength="2" maxlength="200">
+          <span class="popup__input-error description-input-error"></span>
+          <button type="submit" class="popup__save-button">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
   <template id="element-template">
     <li class="element">
       <img src="#" class="element__image" alt="">
       <div class="element__footer">
         <h2 class="element__caption"></h2>
-        <button type="button" class="element__like"></button>
+          <div class="element__like-wrapper">
+            <button type="button" class="element__like"></button>
+            <p class="element__like-count"></p>
+          </div>
       </div>
       <button type="button" class="element__trash"></button>
     </li>

@@ -1,7 +1,8 @@
 export class Card {
-    constructor(caption, image, templateSelector, handleCardClick) {
+    constructor(caption, image, likes, templateSelector, handleCardClick) {
         this._caption = caption;
         this._image = image;
+        this._likes= likes;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
     }
@@ -37,10 +38,12 @@ export class Card {
 
         this._imageElement = this._elementClone.querySelector('.element__image');
         this._captionElement = this._elementClone.querySelector('.element__caption');
+        this._countLike = this._elementClone.querySelector('.element__like-count');
 
         this._captionElement.textContent = this._caption;
         this._imageElement.src = this._image;
         this._imageElement.alt = this._caption;
+        this._countLike.textContent = this._likes.length;
 
         this._buttonLike.addEventListener('click', () => this._handleLikeClick());
         this._buttonTrash.addEventListener('click', () => this._handleTrashClick());
