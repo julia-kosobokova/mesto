@@ -14,6 +14,7 @@ export class UserInfo {
         userInfo.name = this._nameProfile.textContent;
         userInfo.description = this._descriptionProfile.textContent;
         userInfo.avatar=this._avatarProfile.src;
+        userInfo.id = this._id;
         return userInfo;
     }
 
@@ -21,5 +22,6 @@ export class UserInfo {
         this._nameProfile.textContent = userInfo.name;
         this._descriptionProfile.textContent = userInfo.description;
         this._avatarProfile.src=userInfo.avatar;
+        this._id = userInfo.id;
     }
 }

@@ -1,8 +1,9 @@
 export class Card {
-    constructor(caption, image, likes, templateSelector, handleCardClick, handleTrashClick) {
+    constructor({caption, image, likes, isMine}, templateSelector, handleCardClick, handleTrashClick) {
         this._caption = caption;
         this._image = image;
         this._likes= likes;
+        this._isMine = isMine;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
         this._handleTrashClick = handleTrashClick;
@@ -36,7 +37,13 @@ export class Card {
         this._elementClone = this._getTemplate();
 
         this._buttonLike = this._elementClone.querySelector('.element__like');
+        
         this._buttonTrash = this._elementClone.querySelector('.element__trash');
+        if (this._isMine) {
+            this._buttonTrash.classList.add('element__trash_visible');
+        } else {
+            this._buttonTrash.classList.remove('element__trash_visible');
+        }
 
         this._imageElement = this._elementClone.querySelector('.element__image');
         this._captionElement = this._elementClone.querySelector('.element__caption');

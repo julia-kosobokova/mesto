@@ -61,7 +61,12 @@ const instanceUserInfo = new UserInfo({
 
 api.getUserInfo()
   .then((res) => {
-    instanceUserInfo.setUserInfo({name: res.name, description: res.about, avatar:res.avatar})
+    instanceUserInfo.setUserInfo({
+      name: res.name, 
+      description: res.about, 
+      avatar:res.avatar, 
+      id: res._id
+    });
   })
   .catch((err) => {
     console.log(err);
@@ -98,20 +103,22 @@ function handleProfileFormSubmit(inputValues) {
   });
 }
 
-function createCard(caption, image, likes) {
-  const card = new Card(caption, image, likes, '#element-template', openPopupImage, openPopupConfirm);
+function createCard(properties) {
+  const {name, link, likes, owner} = properties;
+  const userInfo = instanceUserInfo.getUserInfo();
+  const userId = userInfo.id;
+  const isMine = (owner._id === userId);
+  const card = new Card({caption: name, image: link, likes, isMine}, '#element-template', openPopupImage, openPopupConfirm);
   const element = card.generateCard();
   return element;
 }
 
 //Создание экземпляра класса Section для заполнения блока с карточками
-const cardsSection = new Section('.elements__list');
+const cardsSection = new Section('.elements__list', createCard);
 
 api.getInitialCards()
   .then((initialCards) => {
-      initialCards.forEach((card)=>{
-      handleCardFormSubmit(card);
-    });
+    cardsSection.setInitialItems(initialCards);
   })
   .catch((err) => {
     console.log(err);
@@ -133,8 +140,7 @@ function openPopupConfirm() {
 function handleCardFormSubmit(inputValues) {
     api.saveNewCard(inputValues)
     .then((res) => {
-      const card = createCard(inputValues.name, inputValues.link, inputValues.likes);
-      cardsSection.addItem(card);
+      cardsSection.addItem(res);
       instancePopupCard.close();
     })
     .catch((err) => {
