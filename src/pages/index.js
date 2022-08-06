@@ -109,6 +109,7 @@ buttonAvatar.addEventListener('click', () => openPopupAvatar());
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleProfileFormSubmit(inputValues) {
+  instancePopupProfile.replaceSaveButtonText('Сохранение...');
   api.saveUserInfo(inputValues)
   .then((res) => {
     const newValues = {
@@ -122,10 +123,14 @@ function handleProfileFormSubmit(inputValues) {
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    instancePopupProfile.restoreSaveButtonText();
   });
 }
 
 function handleAvatarFormSubmit(inputValues) {
+  instancePopupAvatar.replaceSaveButtonText('Сохранение...');
   api.updateUserAvatar(inputValues.link)
   .then((res) => {
     const newValues = {
@@ -139,6 +144,9 @@ function handleAvatarFormSubmit(inputValues) {
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    instancePopupAvatar.restoreSaveButtonText();
   });
 }
 
@@ -187,13 +195,17 @@ function openPopupConfirm(handleRemoveElement, cardId) {
 // Обработчик «отправки» формы добавления карточки, хотя пока
 // она никуда отправляться не будет
 function handleCardFormSubmit(inputValues) {
-    api.saveNewCard(inputValues)
+  instancePopupCard.replaceSaveButtonText('Сохранение...');  
+  api.saveNewCard(inputValues)
     .then((res) => {
       cardsSection.addItem(res);
       instancePopupCard.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      instancePopupCard.restoreSaveButtonText();
     });  
 }
 
