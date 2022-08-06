@@ -17,7 +17,13 @@
 
       <section class="profile">
         <div class="profile__details">
-          <img src="<%= require('./images/kusto.jpg') %>" alt="Аватар" class="profile__avatar">
+          <div class="profile__avatar-wrapper">
+            <img src="<%= require('./images/kusto.jpg') %>" alt="Аватар" class="profile__avatar">
+            <div class="profile__avatar-overlay">
+              <button type="button" class="profile__avatar-button"></button>
+            </div>
+            
+          </div>
           <div class="profile__info">
             <div>
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -96,18 +102,15 @@
     </div>
   </div>
 
-  <div class="popup popup_update-avatar">
-    <div class="popup__container">
+  <div class="popup popup_avatar">
+    <div class="popup__container popup__container_avatar">
       <button type="button" class="popup__close-button"></button>
       <h2 class="popup__title">Обновить аватар</h2>
       <form name="profileForm" class="form popup__form" novalidate>
         <fieldset class="popup__form-set">
-          <input type="text" name="name" placeholder="Введите имя" required class="popup__input popup__input_type_name"
-            id="name-input" minlength="2" maxlength="40">
-          <span class="popup__input-error name-input-error"></span>
-          <input type="text" name="description" placeholder="Введите описание" required
-            class="popup__input popup__input_type_description" id="description-input" minlength="2" maxlength="200">
-          <span class="popup__input-error description-input-error"></span>
+          <input type="url" name="link" placeholder="Ссылка на аватар" required
+            class="popup__input popup__input_type_link" id="avatar-input">
+          <span class="popup__input-error avatar-input-error"></span>
           <button type="submit" class="popup__save-button">Сохранить</button>
         </fieldset>
       </form>

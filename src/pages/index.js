@@ -28,28 +28,34 @@ const api = new Api({
 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
+const buttonAvatar = document.querySelector('.profile__avatar-button');
 
 const popupProfile = document.querySelector('.popup_profile');
-
 const popupCard = document.querySelector('.popup_element');
+const popupAvatar = document.querySelector('.popup_avatar');
 
 const inputProfileName = popupProfile.querySelector('.popup__input_type_name');
 const inputProfileDescription = popupProfile.querySelector('.popup__input_type_description');
+const inputAvatar = popupAvatar.querySelector('.popup__input_type_link');
 
 const formProfile = popupProfile.querySelector('.popup__form');
-
 const formCard = popupCard.querySelector('.popup__form');
+const formAvatar = popupAvatar.querySelector('.popup__form');
 
 const profileValidation = new FormValidator(options, formProfile);
 const cardValidation = new FormValidator(options, formCard);
+const avatarValidation = new FormValidator(options, formAvatar);
 profileValidation.enableValidation();
 cardValidation.enableValidation();
+avatarValidation.enableValidation();
 
 const instancePopupProfile = new PopupWithForm('.popup_profile', handleProfileFormSubmit);
+const instancePopupAvatar = new PopupWithForm('.popup_avatar', handleAvatarFormSubmit);
 const instancePopupCard = new PopupWithForm('.popup_element', handleCardFormSubmit);
 const instancePopupConfirm = new PopupWithConfirmForm('.popup_confirm', handleConfirmFormSubmit);
 const instancePopupImage = new PopupWithImage('.popup_image');
 instancePopupProfile.setEventListeners();
+instancePopupAvatar.setEventListeners();
 instancePopupCard.setEventListeners();
 instancePopupConfirm.setEventListeners();
 instancePopupImage.setEventListeners();
@@ -82,6 +88,14 @@ function openPopupProfile() {
   instancePopupProfile.open();
 }
 
+// Popup окна обновления аватара пользователя
+function openPopupAvatar() {
+  const userInfo = instanceUserInfo.getUserInfo();
+  inputAvatar.value = userInfo.avatar;
+  avatarValidation.resetValidation();
+  instancePopupAvatar.open();
+}
+
 // Popup окна добавления карточки
 function openPopupCard() {
   instancePopupCard.open();
@@ -90,6 +104,7 @@ function openPopupCard() {
 
 buttonEdit.addEventListener('click', () => openPopupProfile());
 buttonAdd.addEventListener('click', () => openPopupCard());
+buttonAvatar.addEventListener('click', () => openPopupAvatar());
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
@@ -104,6 +119,23 @@ function handleProfileFormSubmit(inputValues) {
     instanceUserInfo.setUserInfo(newValues);
 
     instancePopupProfile.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
+function handleAvatarFormSubmit(inputValues) {
+  api.updateUserAvatar(inputValues.link)
+  .then((res) => {
+    const newValues = {
+      name: res.name, 
+      description: res.about, 
+      avatar: res.avatar
+    };
+    instanceUserInfo.setUserInfo(newValues);
+
+    instancePopupAvatar.close();
   })
   .catch((err) => {
     console.log(err);
