@@ -115,13 +115,17 @@ function createCard(item) {
   const userInfo = instanceUserInfo.getUserInfo();
   const userId = userInfo.id;
   const isMine = (owner._id === userId);
-  const card = new Card({caption: name, image: link, likes, isMine, id}, '#element-template', openPopupImage, openPopupConfirm, addLike);
+  const card = new Card({caption: name, image: link, likes, isMine, id}, '#element-template', openPopupImage, openPopupConfirm, addLike, removeLike, userId);
   const element = card.generateCard();
   return element;
 }
 
 function addLike(cardId) {
   return api.addLike(cardId);  
+}
+
+function removeLike(cardId) {
+  return api.removeLike(cardId);  
 }
 
 //Создание экземпляра класса Section для заполнения блока с карточками

@@ -100,6 +100,19 @@ export class Api {
     });
 }
 
-    removeLike
+    // Снятие лайка
+    removeLike(cardId) {
+        return fetch(this._options.baseUrl + '/cards/' + cardId + '/likes', {
+            method: 'DELETE',
+            headers: this._options.headers,
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            // если ошибка, отклоняем промис
+            return Promise.reject(`Ошибка: ${res.status}`);
+        });
+    }
 
 }
