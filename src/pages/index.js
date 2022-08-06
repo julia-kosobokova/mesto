@@ -152,7 +152,8 @@ function handleCardFormSubmit(inputValues) {
 }
 
 function handleConfirmFormSubmit({handleRemoveElement, cardId}) {
-  console.log('handleConfirmFormSubmit, id: ', cardId); // Заменить API-вызовом на удаление
-  handleRemoveElement();
-  instancePopupConfirm.close();
+  api.deleteCard(cardId).then(() => {
+    handleRemoveElement();
+    instancePopupConfirm.close();
+  });
 }

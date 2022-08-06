@@ -70,4 +70,20 @@ export class Api {
         });
     }
 
+    // Добавление новой карточки
+    deleteCard(cardId) {
+        return fetch(this._options.baseUrl + '/cards/' + cardId, {
+            method: 'DELETE',
+            headers: this._options.headers,
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            // если ошибка, отклоняем промис
+            return Promise.reject(`Ошибка: ${res.status}`);
+        });
+    }
+
+
 }
