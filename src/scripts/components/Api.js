@@ -70,7 +70,7 @@ export class Api {
         });
     }
 
-    // Добавление новой карточки
+    // Удаление карточки
     deleteCard(cardId) {
         return fetch(this._options.baseUrl + '/cards/' + cardId, {
             method: 'DELETE',

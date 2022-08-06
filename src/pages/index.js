@@ -96,7 +96,14 @@ buttonAdd.addEventListener('click', () => openPopupCard());
 function handleProfileFormSubmit(inputValues) {
   api.saveUserInfo(inputValues)
   .then((res) => {
-    instanceUserInfo.setUserInfo(inputValues);
+    const newValues = {
+      name: res.name, 
+      description: res.about, 
+      avatar: res.avatar
+    };
+    console.log(res);
+    instanceUserInfo.setUserInfo(newValues);
+    
     instancePopupProfile.close();
   })
   .catch((err) => {
