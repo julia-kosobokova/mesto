@@ -6,6 +6,7 @@ import {PopupWithImage} from '../scripts/components/PopupWithImage.js';
 import {PopupWithForm} from '../scripts/components/PopupWithForm.js';
 import {UserInfo} from '../scripts/components/UserInfo.js';
 import {Api} from '../scripts/components/Api.js';
+import { PopupWithConfirmForm } from '../scripts/components/PopupWithConfirmForm';
 
 const options = {
   formSelector: '.form',
@@ -46,7 +47,7 @@ cardValidation.enableValidation();
 
 const instancePopupProfile = new PopupWithForm('.popup_profile', handleProfileFormSubmit);
 const instancePopupCard = new PopupWithForm('.popup_element', handleCardFormSubmit);
-const instancePopupConfirm = new PopupWithForm('.popup_confirm', handleConfirmFormSubmit);
+const instancePopupConfirm = new PopupWithConfirmForm('.popup_confirm', handleConfirmFormSubmit);
 const instancePopupImage = new PopupWithImage('.popup_image');
 instancePopupProfile.setEventListeners();
 instancePopupCard.setEventListeners();
@@ -103,12 +104,12 @@ function handleProfileFormSubmit(inputValues) {
   });
 }
 
-function createCard(properties) {
-  const {name, link, likes, owner} = properties;
+function createCard(item) {
+  const {name, link, likes, owner, _id: id} = item;
   const userInfo = instanceUserInfo.getUserInfo();
   const userId = userInfo.id;
   const isMine = (owner._id === userId);
-  const card = new Card({caption: name, image: link, likes, isMine}, '#element-template', openPopupImage, openPopupConfirm);
+  const card = new Card({caption: name, image: link, likes, isMine, id}, '#element-template', openPopupImage, openPopupConfirm);
   const element = card.generateCard();
   return element;
 }
@@ -130,7 +131,9 @@ function openPopupImage(link, caption) {
 }
 
 // Функция открытия окна подтверждения удаления карточки
-function openPopupConfirm() {
+function openPopupConfirm(handleRemoveElement, cardId) {
+  instancePopupConfirm.setCardId(cardId);
+  instancePopupConfirm.setHandleRemoveElement(handleRemoveElement);
   instancePopupConfirm.open();
 }
 
@@ -148,6 +151,8 @@ function handleCardFormSubmit(inputValues) {
     });  
 }
 
-function handleConfirmFormSubmit() {
-
+function handleConfirmFormSubmit({handleRemoveElement, cardId}) {
+  console.log('handleConfirmFormSubmit, id: ', cardId); // Заменить API-вызовом на удаление
+  handleRemoveElement();
+  instancePopupConfirm.close();
 }

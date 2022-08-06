@@ -1,5 +1,6 @@
 export class Card {
-    constructor({caption, image, likes, isMine}, templateSelector, handleCardClick, handleTrashClick) {
+    constructor({caption, image, likes, isMine, id}, templateSelector, handleCardClick, handleTrashClick) {
+        this._id = id;
         this._caption = caption;
         this._image = image;
         this._likes= likes;
@@ -26,11 +27,10 @@ export class Card {
     }
 
     // Обработчик клика на корзину
-   // _handleTrashClick() {
-
-        // this._elementClone.remove();
-        // this._elementClone = null;
-    //}
+   _remove() {
+        this._elementClone.remove();
+        this._elementClone = null;
+    }
 
     //Создание новой карточки
     generateCard() {
@@ -55,7 +55,7 @@ export class Card {
         this._countLike.textContent = this._likes.length;
 
         this._buttonLike.addEventListener('click', () => this._handleLikeClick());
-        this._buttonTrash.addEventListener('click', () => this._handleTrashClick());
+        this._buttonTrash.addEventListener('click', () =>   this._handleTrashClick(this._remove.bind(this), this._id));
         this._imageElement.addEventListener('click', () => this._handleCardClick(this._image, this._caption));
 
         return this._elementClone;
