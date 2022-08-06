@@ -101,9 +101,8 @@ function handleProfileFormSubmit(inputValues) {
       description: res.about, 
       avatar: res.avatar
     };
-    console.log(res);
     instanceUserInfo.setUserInfo(newValues);
-    
+
     instancePopupProfile.close();
   })
   .catch((err) => {
@@ -116,9 +115,13 @@ function createCard(item) {
   const userInfo = instanceUserInfo.getUserInfo();
   const userId = userInfo.id;
   const isMine = (owner._id === userId);
-  const card = new Card({caption: name, image: link, likes, isMine, id}, '#element-template', openPopupImage, openPopupConfirm);
+  const card = new Card({caption: name, image: link, likes, isMine, id}, '#element-template', openPopupImage, openPopupConfirm, addLike);
   const element = card.generateCard();
   return element;
+}
+
+function addLike(cardId) {
+  return api.addLike(cardId);  
 }
 
 //Создание экземпляра класса Section для заполнения блока с карточками
