@@ -136,7 +136,8 @@ function handleAvatarFormSubmit(inputValues) {
     const newValues = {
       name: res.name, 
       description: res.about, 
-      avatar: res.avatar
+      avatar: res.avatar,
+      id: res._id
     };
     instanceUserInfo.setUserInfo(newValues);
 
