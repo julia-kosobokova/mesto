@@ -10,12 +10,8 @@ export class Api {
             headers: this._options.headers
         })
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-                // если ошибка, отклоняем промис
-                return Promise.reject(`Ошибка: ${res.status}`);
-            });
+            return this._getResponseData(res);
+        });
     }
 
     // Загрузка карточек с сервера
@@ -24,12 +20,8 @@ export class Api {
             headers: this._options.headers
         })
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-                // если ошибка, отклоняем промис
-                return Promise.reject(`Ошибка: ${res.status}`);
-            });
+            return this._getResponseData(res); 
+        });
     }
 
     // Сохранение профиля
@@ -43,11 +35,7 @@ export class Api {
             })
         })
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return this._getResponseData(res);
         });
     }
 
@@ -62,11 +50,7 @@ export class Api {
             })
         })
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return this._getResponseData(res);
         });
     }
 
@@ -77,11 +61,7 @@ export class Api {
             headers: this._options.headers,
         })
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return this._getResponseData(res);
         });
     }
 
@@ -92,11 +72,7 @@ export class Api {
         headers: this._options.headers,
     })
     .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
+        return this._getResponseData(res);
     });
 }
 
@@ -107,11 +83,7 @@ export class Api {
             headers: this._options.headers,
         })
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return this._getResponseData(res);
         });
     }
 
@@ -125,12 +97,15 @@ export class Api {
             })
         })
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return this._getResponseData(res);
         });
     }
+
+    _getResponseData(res) {
+        if (!res.ok) {
+            return Promise.reject(`Ошибка: ${res.status}`); 
+        }
+        return res.json();
+    } 
 
 }
