@@ -27,20 +27,16 @@ export class Card {
     // Обработчик клика на лайк
     _handleLikeClick() {
         if (this._hasMyLike()) {
-        this._removeLike(this._id)
-            .then(res => {
-                this._likes=res.likes;
-                this._countLike.textContent = this._likes.length;
-                this._updateLike();
-            });
+            this._removeLike(this._id, this._setLikes.bind(this));
         }else{
-            this._addLike(this._id)
-            .then(res => {
-                this._likes=res.likes;
-                this._countLike.textContent = this._likes.length;
-                this._updateLike();
-            });
+            this._addLike(this._id, this._setLikes.bind(this));
         }
+    }
+
+    _setLikes(likes) {
+        this._likes=likes;
+        this._countLike.textContent = this._likes.length;
+        this._updateLike();
     }
 
     _updateLike() {

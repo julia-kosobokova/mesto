@@ -148,12 +148,18 @@ function createCard(item) {
   return element;
 }
 
-function addLike(cardId) {
-  return api.addLike(cardId);  
+function setLikesFromResponse(promise, handleSetLikes) {
+  promise
+    .then((res) => handleSetLikes(res.likes))
+    .catch((err) => console.log(err));
 }
 
-function removeLike(cardId) {
-  return api.removeLike(cardId);  
+function addLike(cardId, handleSetLikes) {
+  setLikesFromResponse(api.addLike(cardId), handleSetLikes);  
+}
+
+function removeLike(cardId, handleSetLikes) {
+  setLikesFromResponse(api.removeLike(cardId), handleSetLikes);  
 }
 
 //Создание экземпляра класса Section для заполнения блока с карточками
