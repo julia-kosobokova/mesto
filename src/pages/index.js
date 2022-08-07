@@ -66,19 +66,6 @@ const instanceUserInfo = new UserInfo({
   avatarSelector: '.profile__avatar'
 });
 
-api.getUserInfo()
-  .then((res) => {
-    instanceUserInfo.setUserInfo({
-      name: res.name, 
-      description: res.about, 
-      avatar:res.avatar, 
-      id: res._id
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  }); 
-
 // Popup окна редактирования профиля
 function openPopupProfile() {
   const userInfo = instanceUserInfo.getUserInfo();
@@ -172,13 +159,22 @@ function removeLike(cardId) {
 //Создание экземпляра класса Section для заполнения блока с карточками
 const cardsSection = new Section('.elements__list', createCard);
 
-api.getInitialCards()
-  .then((initialCards) => {
-    cardsSection.setInitialItems(initialCards);
-  })
-  .catch((err) => {
-    console.log(err);
+Promise.all([
+  api.getUserInfo(),
+  api.getInitialCards(),
+]).then(([info, initialCards]) => {
+  instanceUserInfo.setUserInfo({
+    name: info.name, 
+    description: info.about, 
+    avatar:info.avatar, 
+    id: info._id
   });
+
+  cardsSection.setInitialItems(initialCards);
+})
+.catch((err) => {
+  console.log(err);
+});
 
 // Функция открытия карточки
 function openPopupImage(link, caption) {
