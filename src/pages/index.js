@@ -91,7 +91,6 @@ function openPopupProfile() {
 // Popup окна обновления аватара пользователя
 function openPopupAvatar() {
   const userInfo = instanceUserInfo.getUserInfo();
-  inputAvatar.value = userInfo.avatar;
   avatarValidation.resetValidation();
   instancePopupAvatar.open();
 }
